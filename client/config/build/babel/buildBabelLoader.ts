@@ -17,7 +17,10 @@ export function buildBabelLoader({mode}: BuildOptions) {
                         runtime: isDev ? 'automatic' : 'classic'
                     }
                 ]
-            ]
+            ],
+            plugins: [
+                isDev && require.resolve('react-refresh/babel')
+            ].filter(Boolean)
         }
     };
 }

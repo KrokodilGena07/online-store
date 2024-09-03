@@ -3,6 +3,8 @@ import {BuildOptions} from './types';
 
 export function buildDevServer({port}: BuildOptions): DevServerConfiguration {
     return {
-        port
+        port,
+        historyApiFallback: true,
+        hot: true
     };
 }

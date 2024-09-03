@@ -6,6 +6,7 @@ import {buildWebpack} from './config/build/buildWebpack';
 interface EnvVariables {
     port?: number;
     mode?: BuildMode;
+    analyzer?: boolean;
 }
 
 export default (env: EnvVariables): Configuration => {
@@ -13,12 +14,14 @@ export default (env: EnvVariables): Configuration => {
         entry: path.resolve(__dirname, 'src', 'index.tsx'),
         output: path.resolve(__dirname, 'build'),
         html: path.resolve(__dirname, 'public', 'index.html'),
-        favicon: path.resolve(__dirname, 'public', 'favicon.ico')
+        favicon: path.resolve(__dirname, 'public', 'favicon.ico'),
+        src: path.resolve(__dirname, 'src')
     };
 
     return buildWebpack({
         port: env.port ?? 3000,
         mode: env.mode ?? 'development',
-        paths
+        paths,
+        analyzer: env.analyzer ?? false
     });
 }
