@@ -8,6 +8,7 @@ const errorMiddleware = require('./middlewares/errorMiddleware');
 const db = require('./config/db');
 const compression = require('compression');
 const compressionMiddleware = require('./middlewares/compressionMiddleware');
+require('./models/index');
 
 const app = express();
 const PORT = process.env.PORT;
