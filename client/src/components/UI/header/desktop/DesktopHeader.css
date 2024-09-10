@@ -1,0 +1,35 @@
+.desktop-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+    padding: 10px 10vw;
+}
+
+.desktop-header__logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.desktop-header__logo-text {
+    font-family: 'Rubik Dirt', system-ui;
+    font-size: xx-large;
+
+    color: var(--black-color);
+}
+
+.desktop-header__navbar {
+    display: flex;
+    gap: 10px;
+}
+
+.desktop-header__navbar-item-icon {
+    color: var(--black-color);
+    width: 45px;
+    height: 45px;
+}

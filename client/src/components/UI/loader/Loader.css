@@ -1,0 +1,24 @@
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loader {
+    width: 100px;
+    height: 100px;
+    border: 8px solid #DDDDDD;
+    border-bottom-color: var(--primary-color);
+    border-radius: 50%;
+    animation: loading 0.4s linear infinite;
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

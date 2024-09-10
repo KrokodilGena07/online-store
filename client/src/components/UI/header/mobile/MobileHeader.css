@@ -1,0 +1,43 @@
+.mobile-header__panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+    padding: 8px;
+}
+
+.mobile-header__panel-logo {
+    width: 50px;
+    display: block;
+}
+
+.mobile-header__panel-button-icon {
+    color: var(--black-color);
+    width: 35px;
+    height: 35px;
+}
+
+.mobile-header__menu {
+    display: flex;
+    flex-direction: column;
+
+    height: calc(100vh - 70px);
+}
+
+.mobile-header__menu-item {
+    font-family: Montserrat, system-ui;
+    font-weight: 700;
+    font-size: xx-large;
+
+    text-align: center;
+    text-decoration: none;
+
+    color: var(--black-color);
+    margin-top: 30px;
+}
+
+.mobile-header__menu-item:hover {
+    color: var(--primary-color);
+    cursor: pointer;
+}

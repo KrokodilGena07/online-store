@@ -1,0 +1,21 @@
+.header {
+    position: fixed;
+    background-color: #FFFFFF;
+    width: 100%;
+}
+
+.header-search {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.header-search__input {
+    width: 100%;
+}
+
+.header-search__icon {
+    width: 25px;
+    height: 25px;
+    color: var(--black-color);
+}

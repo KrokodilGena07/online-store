@@ -1,0 +1,36 @@
+.input {
+    border: none;
+    border-radius: 4px;
+    background-color: #DDD;
+    font-family: Montserrat, system-ui;
+    font-weight: 500;
+}
+
+.input:hover {
+    background-color: #e7e7e7;
+}
+
+.input:focus {
+    background-color: #FFF;
+    outline: #08F 1px solid;
+}
+
+.input_sm {
+    padding: 5px;
+}
+
+.input_md {
+    font-size: medium;
+    padding: 7px;
+}
+
+.input_lg {
+    font-size: large;
+    padding: 8px;
+}
+
+.input:disabled {
+    background-color: #d7d7d7;
+    outline: #AAA 1px solid;
+    cursor: not-allowed;
+}
