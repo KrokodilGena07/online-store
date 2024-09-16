@@ -1,7 +1,7 @@
 .mobile-header__panel {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 
     gap: 20px;
     padding: 8px;
@@ -13,15 +13,12 @@
 }
 
 .mobile-header__panel-button-icon {
-    color: var(--black-color);
+    color: #000000;
     width: 35px;
     height: 35px;
 }
 
 .mobile-header__menu {
-    display: flex;
-    flex-direction: column;
-
     height: calc(100vh - 70px);
 }
 
@@ -33,11 +30,13 @@
     text-align: center;
     text-decoration: none;
 
-    color: var(--black-color);
+    color: #000000;
     margin-top: 30px;
+
+    display: block;
 }
 
 .mobile-header__menu-item:hover {
-    color: var(--primary-color);
+    color: var(--blue);
     cursor: pointer;
 }

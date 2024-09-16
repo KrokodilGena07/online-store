@@ -9,6 +9,7 @@ interface InputProps {
     placeholder?: string;
     className?: string;
     disabled?: boolean;
+    id?: string;
 }
 
 const Input: FC<InputProps> = props => {
@@ -20,6 +21,7 @@ const Input: FC<InputProps> = props => {
             className={`input input_${props.size || 'md'} input-text ${props.className}`}
             placeholder={props.placeholder}
             disabled={props.disabled}
+            id={props.id}
         />
     );
 };

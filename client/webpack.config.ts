@@ -22,6 +22,7 @@ export default (env: EnvVariables): Configuration => {
         port: env.port ?? 3000,
         mode: env.mode ?? 'development',
         paths,
-        analyzer: env.analyzer ?? false
+        analyzer: env.analyzer ?? false,
+        api: 'http://localhost:5000/api'
     });
 }

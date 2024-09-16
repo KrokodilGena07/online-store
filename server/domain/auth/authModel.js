@@ -110,7 +110,6 @@ class AuthModel {
         const tokens = tokensModel.generateTokens({
             id: userDto.id, email: userDto.email, role: userDto.role
         });
-        console.log(userDto);
         await tokensModel.saveTokens(tokens.refreshToken, userDto.id);
         return {...tokens, user: userDto};
     }

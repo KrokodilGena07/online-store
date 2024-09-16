@@ -1,10 +1,12 @@
 .button {
     border: none;
     border-radius: 4px;
-    padding: 8px;
+
     font-family: Montserrat, system-ui;
     font-weight: 400;
-    color: #FFF;
+
+    color: #FFFFFF;
+    padding: 8px;
 }
 
 .button:hover {
@@ -12,15 +14,15 @@
 }
 
 .button_primary {
-    background-color: #08F;
+    background-color: var(--blue);
 }
 
 .button_primary:hover {
-    background-color: #1597ff;
+    background-color: var(--light-blue);
 }
 
 .button_default {
-    background-color: #AAA;
+    background-color: #AAAAAA;
 }
 
 .button_default:hover {
@@ -28,8 +30,9 @@
 }
 
 .button_icon {
-    padding: 5px;
     background-color: #cbcbcb;
+    padding: 5px;
+
     display: flex;
     align-items: center;
 }
@@ -52,6 +55,6 @@
 }
 
 .button:disabled {
-    background-color: #DDD;
+    background-color: #DDDDDD;
     cursor: default;
 }

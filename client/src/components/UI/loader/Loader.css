@@ -8,9 +8,11 @@
 .loader {
     width: 100px;
     height: 100px;
+
     border: 8px solid #DDDDDD;
-    border-bottom-color: var(--primary-color);
+    border-bottom-color: var(--blue);
     border-radius: 50%;
+
     animation: loading 0.4s linear infinite;
 }
 

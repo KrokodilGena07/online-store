@@ -1,7 +1,7 @@
-export interface IUser {
+import {IBaseUser} from '@/models/IBaseUser';
+
+export interface IUser extends IBaseUser {
     id: string;
-    username: string;
-    email: string;
     role: string;
     isActivated: boolean;
 }

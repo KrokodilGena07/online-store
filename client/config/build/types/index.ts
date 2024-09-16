@@ -3,6 +3,7 @@ export interface BuildOptions {
     mode: BuildMode;
     paths: BuildPaths;
     analyzer: boolean;
+    api: string;
 }
 
 export interface BuildPaths {

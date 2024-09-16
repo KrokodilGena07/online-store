@@ -1,0 +1,70 @@
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    padding: 0 10px;
+}
+
+.auth-page__form {
+    display: flex;
+    flex-direction: column;
+
+    border: 2px solid #AAAAAA;
+    border-radius: 4px;
+    padding: 0 10px;
+
+    width: 400px;
+    min-width: 300px;
+}
+
+.auth-page__form-label {
+    font-family: Montserrat, system-ui;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.auth-page__form-button {
+    margin-top: 20px;
+}
+
+.auth-page__form-link {
+    font-family: Montserrat, system-ui;
+    font-weight: 400;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #6c6c6c;
+}
+
+.auth-page__form-link-text {
+    text-decoration: none;
+    color: var(--blue);
+}
+
+.auth-page__form-error {
+    font-family: Montserrat, system-ui;
+    font-weight: 400;
+
+    margin-top: 10px;
+    color: #FF0000;
+
+    text-align: center;
+}
+
+.auth-page__form-field-error {
+    font-family: Montserrat, system-ui;
+    margin-top: 2px;
+    color: #FF0000;
+}
+
+.auth-page__form-input_wrong,
+.auth-page__form-input_wrong:hover {
+    background-color: #ffe7e7;
+    color: #FF0000;
+}
+
+.auth-page__form-input_wrong:focus {
+    background-color: #FFFFFF;
+    outline-color: #FF0000;
+}

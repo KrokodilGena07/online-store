@@ -2,8 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
 
 .App {
-    --primary-color: #0088FF;
-    --black-color: #000000;
+    --blue: #0088FF;
+    --light-blue: #1597ff;
 }
 
 * {
