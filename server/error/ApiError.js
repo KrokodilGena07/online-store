@@ -12,6 +12,10 @@ class ApiError extends Error {
     static unauthorized() {
         return new ApiError(401, 'unauthorized error');
     }
+
+    static forbidden() {
+        return new ApiError(403, 'forbidden error');
+    }
 }
 
 module.exports = ApiError;

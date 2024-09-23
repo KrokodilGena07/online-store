@@ -31,6 +31,10 @@ class TokensModel {
     validateRefreshToken(token) {
         return this.#validateToken(token, process.env.REFRESH_SECRET_KEY);
     }
+
+    validateAccessToken(token) {
+        return this.#validateToken(token, process.env.ACCESS_SECRET_KEY);
+    }
 }
 
 module.exports = new TokensModel();
