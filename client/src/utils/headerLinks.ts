@@ -23,7 +23,7 @@ export function headerLinks(user: IUser): INavItem[] {
             icon: AuthIcon
         },
         isAdmin && {
-            path: RouteNames.PANEL,
+            path: RouteNames.ADMIN_PANEL,
             title: 'Admin'
         }
     ].filter(Boolean);

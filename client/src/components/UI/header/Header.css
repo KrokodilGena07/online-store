@@ -2,6 +2,7 @@
     position: fixed;
     background-color: #FFFFFF;
     width: 100%;
+    z-index: 1;
 }
 
 .header-search {

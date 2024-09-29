@@ -1,0 +1,45 @@
+.profile-page {
+    padding: 0 10vw;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: calc(100vh - (var(--desktop-header-height) + var(--header-margin)));
+}
+
+.profile-page__username {
+    font-family: Montserrat, system-ui;
+}
+
+.profile-page__email {
+    font-family: Montserrat, system-ui;
+    font-weight: 600;
+    margin-top: 15px;
+    font-size: large;
+}
+
+.profile-page__email-text {
+    color: var(--blue);
+}
+
+.profile-page__warning {
+    font-family: Montserrat, system-ui;
+    font-weight: 500;
+    color: #FF0000;
+
+    border-bottom: 1px solid #FF0000;
+    margin-bottom: 10px;
+    padding: 6px 0;
+}
+
+.profile-page__buttons {
+    display: flex;
+    gap: 10px;
+    padding-bottom: 8px;
+}
+
+@media screen and (width < 1000px) {
+    .profile-page {
+        padding: 0 8px;
+        height: calc(100vh - (var(--mobile-header-height) + var(--header-margin)));
+    }
+}

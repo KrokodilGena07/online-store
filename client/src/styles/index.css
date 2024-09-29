@@ -4,6 +4,10 @@
 .App {
     --blue: #0088FF;
     --light-blue: #1597ff;
+
+    --mobile-header-height: 66px;
+    --desktop-header-height: 85px;
+    --header-margin: 10px;
 }
 
 * {
@@ -22,4 +26,15 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+}
+
+.header-margin {
+    position: relative;
+    top: calc(var(--desktop-header-height) + var(--header-margin));
+}
+
+@media screen and (width < 1000px) {
+    .header-margin {
+        top: calc(var(--mobile-header-height) + var(--header-margin));
+    }
 }

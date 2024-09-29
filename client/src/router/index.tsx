@@ -17,8 +17,8 @@ export enum RouteNames {
     PRODUCT = '/products/:id',
     CART = '/cart',
     PROFILE = '/profile',
-    PANEL = '/admin/panel',
-    REDACTOR = '/admin/redactor/:id'
+    ADMIN_PANEL = '/admin/panel',
+    ADMIN_REDACTOR = '/admin/redactor/:id'
 }
 
 const baseRoutes: RouteObject[] = [
@@ -41,6 +41,6 @@ export const privateRoutes: RouteObject[] = [
 ];
 
 export const adminRoutes: RouteObject[] = [
-    {path: RouteNames.PANEL, element: <LazyPanel/>},
-    {path: RouteNames.REDACTOR, element: <LazyRedactor/>}
+    {path: RouteNames.ADMIN_PANEL, element: <LazyPanel/>},
+    {path: RouteNames.ADMIN_REDACTOR, element: <LazyRedactor/>}
 ];
