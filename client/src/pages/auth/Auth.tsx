@@ -78,7 +78,7 @@ const Auth: FC = () => {
     </Link>;
 
     return (
-        <div className='auth-page'>
+        <div className='auth-page center-container'>
             <form
                 className='auth-page__form'
                 onSubmit={e => submit(e)}

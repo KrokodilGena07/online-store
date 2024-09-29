@@ -3,7 +3,7 @@ import './Loader.css';
 
 const Loader: FC = () => {
     return (
-        <div className='flex-container'>
+        <div className='center-container'>
             <div className='loader'/>
         </div>
     );

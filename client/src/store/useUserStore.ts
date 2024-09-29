@@ -1,6 +1,7 @@
 import {create} from 'zustand';
 import {IUser} from '@/models/IUser';
 import {IAuthResponse} from '@/models/IAuthResponse';
+import {immer} from 'zustand/middleware/immer';
 
 interface UserStore {
     user?: IUser;
@@ -9,22 +10,19 @@ interface UserStore {
     removeUser: () => void;
 }
 
-export const useUserStore = create<UserStore>()(set => ({
+export const useUserStore = create<UserStore>()(immer(set => ({
     user: JSON.parse(localStorage.getItem('User') || 'null'),
     accessToken: localStorage.getItem('Token'),
-    setUser: (response: IAuthResponse) => set(state => {
+    setUser: (response: IAuthResponse) => {
         localStorage.setItem('User', JSON.stringify(response.user));
         localStorage.setItem('Token', response.accessToken);
-        return {
-            user: response.user,
-            accessToken: response.accessToken
-        };
-    }),
-    removeUser: () => set(state => {
+        set({user: response.user, accessToken: response.accessToken});
+    },
+    removeUser: () => {
         localStorage.clear();
-        return {
+        set({
             user: null,
             accessToken: null
-        };
-    })
-}));
+        });
+    }
+})));

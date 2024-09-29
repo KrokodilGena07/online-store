@@ -20,7 +20,7 @@ const App: FC = () => {
     }, []);
 
     useEffect(() => {
-        if (error?.response.status === 401) {
+        if (error?.response?.status === 401) {
             logout();
             removeUser();
         }
