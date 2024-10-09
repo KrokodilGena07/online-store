@@ -62,7 +62,7 @@ Product.belongsTo(Category);
 Brand.hasMany(Product);
 Product.belongsTo(Category);
 
-Product.hasMany(ProductInfo);
+Product.hasMany(ProductInfo, {as: 'infos'});
 ProductInfo.belongsTo(Product);
 
 User.hasMany(CartItem);

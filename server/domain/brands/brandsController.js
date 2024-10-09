@@ -1,7 +1,7 @@
 const brandsModel = require('./brandsModel');
 const {validationResult} = require('express-validator');
 const ApiError = require('../../error/ApiError');
-const isImage = require('./validators/isImage');
+const isImage = require('../../validators/isImage');
 
 class BrandsController {
     async get(req, res, next) {
