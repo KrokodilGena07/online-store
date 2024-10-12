@@ -18,7 +18,14 @@
 }
 
 .header-search__icon {
-    width: 25px;
-    height: 25px;
+    width: 28px;
+    height: 28px;
     color: #000000;
+}
+
+@media screen and (width < 1000px) {
+    .header-search__icon {
+        width: 23px;
+        height: 23px;
+    }
 }

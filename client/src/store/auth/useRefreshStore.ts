@@ -1,8 +1,8 @@
 import {create} from 'zustand';
 import {immer} from 'zustand/middleware/immer';
-import {IAuthResponse} from '@/models/IAuthResponse';
+import {IAuthResponse} from '@/models/responses/IAuthResponse';
 import {AxiosError} from 'axios';
-import {IErrorData} from '@/models/IErrorData';
+import {IErrorData} from '@/models/error/IErrorData';
 import {AuthApi} from '@/API/AuthApi';
 
 interface RefreshStore {

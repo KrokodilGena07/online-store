@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {IUserInput} from '@/models/IUserInput';
-import {IAuthResponse} from '@/models/IAuthResponse';
+import {IUserInput} from '@/models/user/IUserInput';
+import {IAuthResponse} from '@/models/responses/IAuthResponse';
 
 export class AuthApi {
     static BASE_URL = `${__API__}/auth`;

@@ -1,8 +1,8 @@
 import {create} from 'zustand';
-import {IUserInput} from '@/models/IUserInput';
+import {IUserInput} from '@/models/user/IUserInput';
 import {immer} from 'zustand/middleware/immer';
 import {AuthApi} from '@/API/AuthApi';
-import {IAuthResponse} from '@/models/IAuthResponse';
+import {IAuthResponse} from '@/models/responses/IAuthResponse';
 
 interface LoginStore {
     isLoading: boolean;

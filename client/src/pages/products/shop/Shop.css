@@ -1,0 +1,36 @@
+.shop-page {
+    position: relative;
+    top: calc(var(--desktop-header-height) + var(--header-margin));
+    padding: 0 10vw;
+}
+
+.shop-page__filter {
+    border-radius: 4px;
+    padding: 8px;
+    background-color: #DDDDDD;
+    margin-bottom: 15px;
+
+    display: flex;
+    gap: 15px;
+}
+
+.shop-page__filter-sort {
+    min-width: 200px;
+}
+
+@media screen and (width < 1000px) {
+    .shop-page {
+        padding: 0 8px;
+        top: calc(var(--mobile-header-height) + var(--header-margin));
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .shop-page__filter {
+        flex-wrap: wrap;
+    }
+}
+
+.product-item__img {
+    width: 200px;
+}

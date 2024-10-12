@@ -1,4 +1,4 @@
-import {IError} from '@/models/IError';
+import {IError} from '@/models/error/IError';
 
 export interface IErrorData {
     message: string;

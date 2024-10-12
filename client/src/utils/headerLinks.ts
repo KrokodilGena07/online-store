@@ -2,7 +2,7 @@ import {INavItem} from '@/models/INavItem';
 import {RouteNames} from '@/router';
 import CartIcon from '@/assets/svg/cart.svg';
 import AuthIcon from '@/assets/svg/auth.svg';
-import {IUser} from '@/models/IUser';
+import {IUser} from '@/models/user/IUser';
 
 export function headerLinks(user: IUser): INavItem[] {
     const isAdmin = user?.role === 'ADMIN';

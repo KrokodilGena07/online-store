@@ -7,9 +7,9 @@ import {Link, useNavigate} from 'react-router-dom';
 import {useLoginStore} from '@/store/auth/useLoginStore';
 import {AxiosError} from 'axios';
 import {useRegistrationStore} from '@/store/auth/useRegistrationStore';
-import {IUserInput} from '@/models/IUserInput';
-import {IErrorData} from '@/models/IErrorData';
-import {IError} from '@/models/IError';
+import {IUserInput} from '@/models/user/IUserInput';
+import {IErrorData} from '@/models/error/IErrorData';
+import {IError} from '@/models/error/IError';
 import {useUserStore} from '@/store/useUserStore';
 
 const Auth: FC = () => {

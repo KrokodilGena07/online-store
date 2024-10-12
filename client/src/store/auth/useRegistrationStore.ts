@@ -1,8 +1,8 @@
 import {create} from 'zustand';
 import {immer} from 'zustand/middleware/immer';
-import {IUserInput} from '@/models/IUserInput';
+import {IUserInput} from '@/models/user/IUserInput';
 import {AuthApi} from '@/API/AuthApi';
-import {IAuthResponse} from '@/models/IAuthResponse';
+import {IAuthResponse} from '@/models/responses/IAuthResponse';
 
 interface RegistrationStore {
     isLoading: boolean;

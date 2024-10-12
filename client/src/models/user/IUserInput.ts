@@ -1,4 +1,4 @@
-import {IBaseUser} from '@/models/IBaseUser';
+import {IBaseUser} from '@/models/user/IBaseUser';
 
 export interface IUserInput extends IBaseUser {
     password: string;

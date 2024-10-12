@@ -1,6 +1,6 @@
 import {create} from 'zustand';
-import {IUser} from '@/models/IUser';
-import {IAuthResponse} from '@/models/IAuthResponse';
+import {IUser} from '@/models/user/IUser';
+import {IAuthResponse} from '@/models/responses/IAuthResponse';
 import {immer} from 'zustand/middleware/immer';
 
 interface UserStore {

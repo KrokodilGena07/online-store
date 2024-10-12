@@ -12,3 +12,5 @@ export const useLogoutStore = create<LogoutStore>()(immer(set => ({
             .catch(error => error);
     }
 })));
+
+//TODO ADD SOME LOADING AND ERROR
