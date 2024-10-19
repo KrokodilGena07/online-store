@@ -1,10 +1,12 @@
 const {Product, Brand, Category, ProductInfo} = require('../../models');
-const ApiError = require('../../error/ApiError');
 const uuid = require('uuid');
 const ProductDto = require('./dtos/ProductDto');
 const {Op} = require('sequelize');
+const findById = require('../../validators/findById');
 
 class ProductsModel {
+    NOT_FOUND_TEXT = 'product wasn\'t found';
+
     async getAll(brandId, categoryId, sort, search, limit, page) {
         const lim = Number(limit) || 10;
         const p = Number(page) || 1;
@@ -49,13 +51,9 @@ class ProductsModel {
     }
 
     async getOneById(id) {
-        const product = await Product.findByPk(id, {
+        const product = await findById(id, Product, this.NOT_FOUND_TEXT, {
             include: {model: ProductInfo, as: 'infos'}
         });
-
-        if (!product) {
-            throw ApiError.badRequest('product wasn\'t found');
-        }
 
         return new ProductDto(product);
     }
@@ -71,16 +69,7 @@ class ProductsModel {
 
     async create(name, description, price, brandId, categoryId, image) {
         const id = uuid.v4();
-
-        const brand = await Brand.findByPk(brandId);
-        if (!brand) {
-            throw ApiError.badRequest('brandId is wrong');
-        }
-
-        const category = await Category.findByPk(categoryId);
-        if (!category) {
-            throw ApiError.badRequest('categoryId is wrong');
-        }
+        await this.#checkIds(brandId, categoryId);
 
         const product = await Product.create({
             name, description, price, brandId, categoryId, image, id
@@ -90,20 +79,8 @@ class ProductsModel {
     }
 
     async update(name, description, price, brandId, categoryId, image, id) {
-        const product = await Product.findByPk(id);
-        if (!product) {
-            throw ApiError.badRequest('product wasn\'t found');
-        }
-
-        const brand = await Brand.findByPk(brandId);
-        if (!brand) {
-            throw ApiError.badRequest('brandId is wrong');
-        }
-
-        const category = await Category.findByPk(categoryId);
-        if (!category) {
-            throw ApiError.badRequest('categoryId is wrong');
-        }
+        const product = await findById(id, Product, this.NOT_FOUND_TEXT);
+        await this.#checkIds(brandId, categoryId);
 
         product.set({name, description, price, brandId, categoryId, image});
         const newProduct = await product.save();
@@ -111,12 +88,13 @@ class ProductsModel {
     }
 
     async delete(id) {
-        const product = await Product.findByPk(id);
-        if (!product) {
-            throw ApiError.badRequest('product wasn\'t found');
-        }
-
+        const product = await findById(id, Product, this.NOT_FOUND_TEXT);
         await product.destroy();
+    }
+
+    async #checkIds(brandId, categoryId) {
+        await findById(brandId, Brand, 'brandId is invalid');
+        await findById(categoryId, Category, 'categoryId is invalid');
     }
 }
 

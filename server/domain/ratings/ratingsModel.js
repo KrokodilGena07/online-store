@@ -1,6 +1,11 @@
-const {Rating, Product, User} = require('../../models');
+const {
+    Rating,
+    Product,
+    User
+} = require('../../models');
 const uuid = require('uuid');
 const ApiError = require('../../error/ApiError');
+const findById = require('../../validators/findById');
 
 class RatingsModel {
     async get(userId, productId) {
@@ -14,15 +19,8 @@ class RatingsModel {
     async #rating(userId, productId, positiveField, negativeField, positiveRating, negativeRating) {
         const rating = await Rating.findOne({where: {userId, productId}});
 
-        const product = await Product.findByPk(productId);
-        if (!product) {
-            throw ApiError.badRequest('validation error');
-        }
-
-        const user = await User.findByPk(userId);
-        if (!user) {
-            throw ApiError.badRequest('validation error');
-        }
+        const product = await findById(productId, Product, 'product wasn\'t found');
+        await findById(userId, User, 'user wasn\'t found');
 
         if (!rating) {
             const id = uuid.v4();

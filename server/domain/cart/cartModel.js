@@ -1,8 +1,15 @@
-const {CartItem, User, Product} = require('../../models');
+const {
+    CartItem,
+    User,
+    Product
+} = require('../../models');
 const ApiError = require('../../error/ApiError');
 const uuid = require('uuid');
+const findById = require('../../validators/findById');
 
 class CartModel {
+    NOT_FOUND_TEXT = 'cart item wasn\'t found'
+
     async getList(userId) {
         return await CartItem.findAll({where: {userId}});
     }
@@ -10,7 +17,7 @@ class CartModel {
     async getOne(userId, productId) {
         const cartItem = await CartItem.findOne({where: {userId, productId}});
         if (!cartItem) {
-            throw ApiError.badRequest('cart item wasn\'t found');
+            throw ApiError.badRequest(this.NOT_FOUND_TEXT);
         }
         return cartItem;
     }
@@ -18,18 +25,10 @@ class CartModel {
     async create(userId, productId) {
         const candidate = await CartItem.findOne({where: {userId, productId}});
         if (!candidate) {
-            const user = await User.findByPk(userId);
-            if (!user) {
-                throw ApiError.badRequest('validation error');
-            }
-
-            const product = await Product.findByPk(productId);
-            if (!product) {
-                throw ApiError.badRequest('validation error');
-            }
+            await findById(userId, User, 'user wasn\'t found');
+            await findById(productId, Product, 'product wasn\'t found');
 
             const id = uuid.v4();
-
             return await CartItem.create({userId, productId, id});
         }
 
@@ -37,10 +36,7 @@ class CartModel {
     }
 
     async update(id) {
-        const cartItem = await CartItem.findByPk(id);
-        if (!cartItem) {
-            throw ApiError.badRequest('cart item wasn\'t found');
-        }
+        const cartItem = findById(id, CartItem, this.NOT_FOUND_TEXT);
         if (cartItem.count === 1) {
             return await cartItem.destroy();
         }
@@ -48,10 +44,7 @@ class CartModel {
     }
 
     async delete(id) {
-        const cartItem = await CartItem.findByPk(id);
-        if (!cartItem) {
-            throw ApiError.badRequest('cart item wasn\'t found');
-        }
+        const cartItem = findById(id, CartItem, this.NOT_FOUND_TEXT);
         await cartItem.destroy();
     }
 }

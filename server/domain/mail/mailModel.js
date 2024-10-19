@@ -21,7 +21,7 @@ class MailModel {
             html: `
                 <div>
                     <h1>Activation account on online-store</h1>
-                    <a href="${link}">Follow the link to activate</a>
+                    <a href="${link}">${link}</a>
                 </div>
             `,
         });

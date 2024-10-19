@@ -5,6 +5,9 @@ const isImage = require('../../validators/isImage');
 const isJSON = require('../../validators/isJSON');
 
 class ProductsController {
+    DATA_ERROR_TEXT = 'data is invalid';
+    IMAGE_ERROR_TEXT = 'image is invalid';
+
     async getOneById(req, res, next) {
         try {
             const {id} = req.params;
@@ -34,7 +37,9 @@ class ProductsController {
     async getAll(req, res, next) {
         try {
             const {brandId, categoryId, sort, search, limit, page} = req.query;
-            const data = await productsModel.getAll(brandId, categoryId, sort, search, limit, page);
+            const data = await productsModel.getAll(
+                brandId, categoryId, sort, search, limit, page
+            );
             res.json(data);
         } catch (e) {
             next(e);
@@ -48,13 +53,15 @@ class ProductsController {
 
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest('validation error', errors.array()));
+                return next(ApiError.badRequest(this.DATA_ERROR_TEXT, errors.array()));
             }
             if (!isImage(files?.image.name)) {
-                return next(ApiError.badRequest('image is invalid'));
+                return next(ApiError.badRequest(this.IMAGE_ERROR_TEXT));
             }
 
-            const data = await productsModel.create(name, description, price, brandId, categoryId, files.image.data);
+            const data = await productsModel.create(
+                name, description, price, brandId, categoryId, files.image.data
+            );
             res.json(data);
         } catch (e) {
             next(e);
@@ -68,13 +75,15 @@ class ProductsController {
 
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest('validation error', errors.array()));
+                return next(ApiError.badRequest(this.DATA_ERROR_TEXT, errors.array()));
             }
             if (!isImage(files?.image.name)) {
-                return next(ApiError.badRequest('image is invalid'));
+                return next(ApiError.badRequest(this.IMAGE_ERROR_TEXT));
             }
 
-            const data = await productsModel.update(name, description, price, brandId, categoryId, files.image.data, id);
+            const data = await productsModel.update(
+                name, description, price, brandId, categoryId, files.image.data, id
+            );
             res.json(data);
         } catch (e) {
             next(e);

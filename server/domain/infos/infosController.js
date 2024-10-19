@@ -3,13 +3,15 @@ const ApiError = require('../../error/ApiError');
 const infosModel = require('./infosModel');
 
 class InfosController {
+    DATA_ERROR_TEXT = 'data is invalid'
+
     async create(req, res, next) {
         try {
             const {title, body, productId} = req.body;
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest('validation error', errors.array()));
+                return next(ApiError.badRequest(this.DATA_ERROR_TEXT, errors.array()));
             }
 
             const data = await infosModel.create(title, body, productId);
@@ -25,7 +27,7 @@ class InfosController {
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest('validation error', errors.array()));
+                return next(ApiError.badRequest(this.DATA_ERROR_TEXT, errors.array()));
             }
 
             const data = await infosModel.update(title, body, id);

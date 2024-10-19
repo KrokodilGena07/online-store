@@ -1,8 +1,8 @@
 const {body} = require('express-validator');
 
 const idValidator = [
-    body('userId', 'userId can\'t be empty').notEmpty(),
-    body('productId', 'productId can\'t be empty').notEmpty()
+    body('userId', 'userId invalid').isLength({min: 1, max: 255}),
+    body('productId', 'productId is invalid').isLength({min: 1, max: 255})
 ];
 
 module.exports = idValidator;

@@ -1,9 +1,9 @@
 const {body} = require('express-validator');
 
 const authValidator = [
-    body('username', 'Username can\'t be empty').notEmpty(), // TODO MAKE MAX 255 SYMBOLS
-    body('email', 'Email is invalid').isEmail(),
-    body('password', 'Please enter a strong password').isStrongPassword({
+    body('username', 'username is invalid').isLength({min: 1, max: 255}),
+    body('email', 'email is invalid').isEmail(),
+    body('password', 'please enter a strong password').isStrongPassword({
         minLength: 10,
         minLowercase: 2,
         minUppercase: 2,

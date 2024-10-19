@@ -1,7 +1,10 @@
 const Router = require('express');
 const roleMiddleware = require('../../middlewares/roleMiddleware');
 const infosController = require('./infosController');
-const {updateInfosValidator, infosValidator} = require('./validators/infosValidator');
+const {
+    updateInfosValidator,
+    infosValidator
+} = require('./validators/infosValidator');
 
 const infosRouter = new Router();
 

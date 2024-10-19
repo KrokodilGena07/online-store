@@ -3,11 +3,13 @@ const ratingsModel = require('./ratingsModel');
 const {validationResult} = require('express-validator');
 
 class RatingController {
+    ID_ERROR_TEXT = 'userId or productId is empty';
+
     async get(req, res, next) {
         try {
             const {userId, productId} = req.query;
             if (!userId || !productId) {
-                return next(ApiError.badRequest('validation error'));
+                return next(ApiError.badRequest(this.ID_ERROR_TEXT));
             }
 
             const data = await ratingsModel.get(userId, productId);
@@ -23,7 +25,7 @@ class RatingController {
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest('validation error', errors.array()));
+                return next(ApiError.badRequest(this.ID_ERROR_TEXT, errors.array()));
             }
 
             const data = await ratingsModel.like(userId, productId);
@@ -39,7 +41,7 @@ class RatingController {
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest('validation error', errors.array()));
+                return next(ApiError.badRequest(this.ID_ERROR_TEXT, errors.array()));
             }
 
             const data = await ratingsModel.dislike(userId, productId);

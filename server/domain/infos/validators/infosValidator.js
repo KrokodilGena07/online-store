@@ -1,18 +1,18 @@
 const {body} = require('express-validator');
 
 const baseInfoValidator = [
-    body('title', 'title can\'t be empty').notEmpty(), // TODO MAKE MAX 255 SYMBOLS
-    body('body', 'body can\'t be empty').notEmpty(), // TODO MAKE MAX 255 SYMBOLS
+    body('title', 'title is invalid').isLength({min: 1, max: 255}),
+    body('body', 'body is invalid').isLength({min: 1, max: 255}),
 ];
 
 const infosValidator = [
     ...baseInfoValidator,
-    body('productId', 'product id can\'t be empty').notEmpty() // TODO MAKE MAX 255 SYMBOLS
+    body('productId', 'productId is invalid').isLength({min: 1, max: 255})
 ];
 
 const updateInfosValidator = [
     ...baseInfoValidator,
-    body('id', 'id can\'t be empty').notEmpty() // TODO MAKE MAX 255 SYMBOLS
+    body('id', 'id is invalid').isLength({min: 1, max: 255})
 ];
 
 module.exports = {

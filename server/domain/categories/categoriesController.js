@@ -18,7 +18,7 @@ class CategoriesController {
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest('validation error', errors.array()));
+                return next(ApiError.badRequest('name is invalid', errors.array()));
             }
 
             const data = await categoriesModel.create(name);
@@ -34,7 +34,7 @@ class CategoriesController {
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest('validation error', errors.array()));
+                return next(ApiError.badRequest('name or id is invalid', errors.array()));
             }
 
             const data = await categoriesModel.update(name, id);

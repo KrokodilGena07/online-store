@@ -4,6 +4,8 @@ const ApiError = require('../../error/ApiError');
 const isImage = require('../../validators/isImage');
 
 class BrandsController {
+    IMAGE_ERROR_TEXT = 'image is invalid';
+
     async get(req, res, next) {
         try {
             const data = await brandsModel.get();
@@ -20,10 +22,10 @@ class BrandsController {
 
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest('validation error', errors.array()));
+                return next(ApiError.badRequest('name is invalid', errors.array()));
             }
             if (!isImage(files?.image.name)) {
-                return next(ApiError.badRequest('image is invalid'));
+                return next(ApiError.badRequest(this.IMAGE_ERROR_TEXT));
             }
 
             const data = await brandsModel.create(name, files.image.data);
@@ -40,10 +42,10 @@ class BrandsController {
 
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest('validation error', errors.array()));
+                return next(ApiError.badRequest('name or id is invalid', errors.array()));
             }
             if (!isImage(files?.image.name)) {
-                return next(ApiError.badRequest('image is invalid'));
+                return next(ApiError.badRequest(this.IMAGE_ERROR_TEXT));
             }
 
             const data = await brandsModel.update(name, files.image.data, id);
