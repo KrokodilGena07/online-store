@@ -44,7 +44,8 @@ const ProductInfo = db.define('info', {
 });
 
 const CartItem = db.define('cart_item', {
-    id: {type: DataTypes.STRING, primaryKey: true}
+    id: {type: DataTypes.STRING, primaryKey: true},
+    count: {type: DataTypes.INTEGER, defaultValue: 1}
 });
 
 const Rating = db.define('rating', {
