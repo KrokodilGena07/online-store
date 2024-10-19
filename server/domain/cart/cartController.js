@@ -16,6 +16,10 @@ class CartController {
     async getOne(req, res, next) {
         try {
             const {userId, productId} = req.query;
+            if (!userId || !productId) {
+                return next(ApiError.badRequest('validation error'));
+            }
+
             const data = await cartModel.getOne(userId, productId);
             res.json(data);
         } catch (e) {

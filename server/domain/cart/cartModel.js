@@ -8,16 +8,7 @@ class CartModel {
     }
 
     async getOne(userId, productId) {
-        let where = {userId, productId};
-
-        for (const whereKey in where) {
-            if (!where[whereKey]) {
-                where = {};
-                break;
-            }
-        }
-
-        const cartItem = await CartItem.findOne({where});
+        const cartItem = await CartItem.findOne({where: {userId, productId}});
         if (!cartItem) {
             throw ApiError.badRequest('cart item wasn\'t found');
         }
