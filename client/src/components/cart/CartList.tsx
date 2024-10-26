@@ -5,7 +5,7 @@ import MinusIcon from '@/assets/svg/minusIcon.svg';
 import PlusIcon from '@/assets/svg/plusIcon.svg';
 import {useNavigate} from 'react-router-dom';
 import {useAddToCart} from '@/store/cart/useAddToCart';
-import {ICartItemInput} from '@/models/ICartItemInput';
+import {ICartItemInput} from '@/models/cart/ICartItemInput';
 import {useFetchList} from '@/store/cart/useFetchList';
 import {useRemoveFromCart} from '@/store/cart/useRemoveFromCart';
 

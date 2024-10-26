@@ -8,6 +8,6 @@ interface RemoveFromCartStore {
 
 export const useDeleteFromCart = create<RemoveFromCartStore>()(immer(set => ({
     remove: async (id: string) => {
-        await CartApi.delete(id);
+        await CartApi.removeCartItem(id);
     }
 })));

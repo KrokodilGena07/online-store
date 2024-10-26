@@ -16,7 +16,7 @@ export const useFetchList = create<FetchListStore>()(immer(set => ({
     fetchList: async (id: string) => {
         set({isLoading: true});
         try {
-            await CartApi.fetchList(id).then(async list => {
+            await CartApi.fetchCartItems(id).then(async list => {
                 const ids = list.map(item => item.productId);
                 const products = await ProductsApi.fetchProductsByIds(ids);
                 const data = products.map(
