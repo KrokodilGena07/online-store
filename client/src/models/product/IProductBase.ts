@@ -3,4 +3,5 @@ export interface IProductBase {
     description: string;
     brandId: string;
     categoryId: string;
+    id: string;
 }

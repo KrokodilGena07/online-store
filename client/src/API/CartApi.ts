@@ -1,7 +1,7 @@
 import {useUserStore} from '@/store/user/useUserStore';
 import axios from 'axios';
 import {ICartItem} from '@/models/cart/ICartItem';
-import {ICartItemInput} from '@/models/cart/ICartItemInput';
+import {IIdInput} from '@/models/IIdInput';
 
 export class CartApi {
     static BASE_URL = `${__API__}/cart`;
@@ -16,14 +16,14 @@ export class CartApi {
         }).then(response => response.data)
     }
 
-    static async fetchCartItem(data: ICartItemInput): Promise<ICartItem> {
+    static async fetchCartItem(data: IIdInput): Promise<ICartItem> {
         return await axios.get(`${this.BASE_URL}/one`, {
             params: data,
             headers: this.HEADERS
         }).then(response => response.data);
     }
 
-    static async incrementCountOrAdd(data: ICartItemInput): Promise<ICartItem> {
+    static async incrementCountOrAdd(data: IIdInput): Promise<ICartItem> {
         return await axios.post(this.BASE_URL, data, {
             headers: this.HEADERS
         }).then(response => response.data);

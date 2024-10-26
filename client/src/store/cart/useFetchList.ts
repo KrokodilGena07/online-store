@@ -2,7 +2,7 @@ import {create} from 'zustand';
 import {immer} from 'zustand/middleware/immer';
 import {CartApi} from '@/API/CartApi';
 import {ProductsApi} from '@/API/ProductsApi';
-import {ICartProduct} from '@/models/ICartProduct';
+import {ICartProduct} from '@/models/cart/ICartProduct';
 
 interface FetchListStore {
     isLoading: boolean;

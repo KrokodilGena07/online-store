@@ -1,4 +1,4 @@
-export interface ICartItemInput {
+export interface IIdInput {
     userId: string;
     productId: string;
 }

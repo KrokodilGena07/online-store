@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
-import {ICartProduct} from '@/models/ICartProduct';
+import {ICartProduct} from '@/models/cart/ICartProduct';
 import Button from '@/components/UI/button/Button';
 import MinusIcon from '@/assets/svg/minusIcon.svg';
 import PlusIcon from '@/assets/svg/plusIcon.svg';
 import {useNavigate} from 'react-router-dom';
 import {useAddToCart} from '@/store/cart/useAddToCart';
-import {ICartItemInput} from '@/models/cart/ICartItemInput';
+import {IIdInput} from '@/models/IIdInput';
 import {useFetchList} from '@/store/cart/useFetchList';
 import {useRemoveFromCart} from '@/store/cart/useRemoveFromCart';
 
@@ -23,7 +23,7 @@ const CartList: FC<CartListProps> = ({cartItems, deleteFromCart, userId}) => {
 
     const plus = useAddToCart(state => state.addToCart);
     const minus = useRemoveFromCart(state => state.removeFromCart);
-    const addToCart = async (cartInput: ICartItemInput) => {
+    const addToCart = async (cartInput: IIdInput) => {
         await plus(cartInput)
             .then(async () => {
                 fetchList(userId);

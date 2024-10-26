@@ -1,6 +1,6 @@
-import {ICartItemInput} from '@/models/cart/ICartItemInput';
+import {IIdInput} from '@/models/IIdInput';
 
-export interface ICartItem extends ICartItemInput {
+export interface ICartItem extends IIdInput {
     id: string;
     count: number;
 }
