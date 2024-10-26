@@ -1,4 +1,4 @@
-import {INavItem} from '@/models/INavItem';
+import {INavItem} from '@/models/UI/INavItem';
 import {RouteNames} from '@/router';
 import CartIcon from '@/assets/svg/cart.svg';
 import AuthIcon from '@/assets/svg/auth.svg';

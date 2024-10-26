@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Route, Routes} from 'react-router-dom';
-import {useUserStore} from '@/store/useUserStore';
+import {useUserStore} from '@/store/user/useUserStore';
 import {adminRoutes, privateRoutes, publicRoutes} from '@/router';
 
 const AppRouter: FC = () => {

@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useRef, useState} from 'react';
 import './Dropdown.css';
-import {IDropdownItem} from '@/models/IDropdownItem';
+import {IDropdownItem} from '@/models/UI/IDropdownItem';
 import DropdownIcon from '@/assets/svg/dropdownIcon.svg';
 
 interface DropdownProps {

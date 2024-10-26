@@ -36,7 +36,7 @@ class CartModel {
     }
 
     async update(id) {
-        const cartItem = findById(id, CartItem, this.NOT_FOUND_TEXT);
+        const cartItem = await findById(id, CartItem, this.NOT_FOUND_TEXT);
         if (cartItem.count === 1) {
             return await cartItem.destroy();
         }
@@ -44,7 +44,7 @@ class CartModel {
     }
 
     async delete(id) {
-        const cartItem = findById(id, CartItem, this.NOT_FOUND_TEXT);
+        const cartItem = await findById(id, CartItem, this.NOT_FOUND_TEXT);
         await cartItem.destroy();
     }
 }

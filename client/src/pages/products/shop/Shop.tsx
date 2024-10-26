@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import './Shop.css';
 import Dropdown from '@/components/UI/dropdown/Dropdown';
-import {IDropdownItem} from '@/models/IDropdownItem';
+import {IDropdownItem} from '@/models/UI/IDropdownItem';
 import {useFetchBrands} from '@/store/brands/useFetchBrands';
 import Loader from '@/components/UI/loader/Loader';
 import {useFetchCategories} from '@/store/categories/useFetchCategories';

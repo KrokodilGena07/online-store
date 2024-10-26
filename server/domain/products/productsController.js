@@ -21,6 +21,7 @@ class ProductsController {
     async getListByIds(req, res, next) {
         try {
             const {list} = req.query;
+            console.log(list);
             const data = isJSON(list, 'list is invalid');
             if (!Array.isArray(data)) {
                 return next(ApiError.badRequest('list is wrong'));

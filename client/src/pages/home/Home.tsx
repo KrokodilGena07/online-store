@@ -35,10 +35,10 @@ const Home: FC = () => {
     }
 
     return (
-        <div className='home-page'>
+        <div className='home-page header-margin'>
             {brands?.length &&
                 <div className='home-page__brands'>
-                    <h2 className='home-page__text'>Brands</h2>
+                    <h2 className='home-page__text home-page__brands-text'>Brands</h2>
                     <div className='home-page__brands-list'>
                         {brands.map(brand =>
                             <div
@@ -58,7 +58,7 @@ const Home: FC = () => {
             }
             {products?.count &&
                 <div className="home-page__products">
-                    <h2 className='home-page__text'>Popular products</h2>
+                    <h2 className='home-page__text home-page__products-text'>Popular products</h2>
                     <div className='home-page__products-list'>
                         {products.data.map(product =>
                             <ProductItem product={product} key={product.id}/>

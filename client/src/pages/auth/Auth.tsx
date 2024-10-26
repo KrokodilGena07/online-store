@@ -10,7 +10,7 @@ import {useRegistrationStore} from '@/store/auth/useRegistrationStore';
 import {IUserInput} from '@/models/user/IUserInput';
 import {IErrorData} from '@/models/error/IErrorData';
 import {IError} from '@/models/error/IError';
-import {useUserStore} from '@/store/useUserStore';
+import {useUserStore} from '@/store/user/useUserStore';
 
 const Auth: FC = () => {
     const [newUser, setNewUser] = useState<IUserInput>({

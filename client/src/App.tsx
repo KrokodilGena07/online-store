@@ -4,7 +4,7 @@ import AppRouter from '@/components/AppRouter';
 import Header from '@/components/UI/header/Header';
 import Loader from '@/components/UI/loader/Loader';
 import {useRefreshStore} from '@/store/auth/useRefreshStore';
-import {useUserStore} from '@/store/useUserStore';
+import {useUserStore} from '@/store/user/useUserStore';
 import {useLogoutStore} from '@/store/auth/useLogoutStore';
 
 const App: FC = () => {

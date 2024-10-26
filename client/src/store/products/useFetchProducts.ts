@@ -4,7 +4,7 @@ import {AxiosError} from 'axios';
 import {IErrorData} from '@/models/error/IErrorData';
 import {ProductsApi} from '@/API/ProductsApi';
 import {IProductQuery} from '@/models/product/IProductQuery';
-import {IProductsResponse} from '@/models/IProductsResponse';
+import {IProductsResponse} from '@/models/responses/IProductsResponse';
 
 interface FetchProductsStore {
     data: IProductsResponse;

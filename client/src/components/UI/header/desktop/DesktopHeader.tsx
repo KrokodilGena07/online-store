@@ -3,7 +3,7 @@ import './DesktopHeader.css';
 import {Link} from 'react-router-dom';
 import {RouteNames} from '@/router';
 import logo from '@/assets/images/logo.png';
-import {INavItem} from '@/models/INavItem';
+import {INavItem} from '@/models/UI/INavItem';
 import Button from '@/components/UI/button/Button';
 import Input from '@/components/UI/input/Input';
 import Search from '@/assets/svg/search.svg';

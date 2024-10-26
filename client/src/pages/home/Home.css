@@ -1,5 +1,4 @@
 .home-page {
-    position: relative;
     top: calc(var(--desktop-header-height) + var(--header-margin));
     padding: 0 10vw;
 }
@@ -78,10 +77,18 @@
         min-width: 300px;
         justify-content: center;
     }
+
+    .home-page__brands-text {
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 700px) {
     .home-page__products-list {
         justify-content: center;
+    }
+
+    .home-page__products-text {
+        text-align: center;
     }
 }
