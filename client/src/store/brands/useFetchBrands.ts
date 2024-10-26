@@ -1,4 +1,4 @@
-import {IBrand} from '@/models/IBrand';
+import {IBrand} from '@/models/brand/IBrand';
 import {create} from 'zustand';
 import {immer} from 'zustand/middleware/immer';
 import {BrandsApi} from '@/API/BrandsApi';

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {IBrand} from '@/models/IBrand';
+import {IBrand} from '@/models/brand/IBrand';
 import {useUserStore} from '@/store/user/useUserStore';
-import {IBrandInput} from '@/models/IBrandInput';
+import {IBrandInput} from '@/models/brand/IBrandInput';
 
 export class BrandsApi {
     static BASE_URL = `${__API__}/brands`;
@@ -38,7 +38,7 @@ export class BrandsApi {
     }
 
     static async deleteBrand(id: string): Promise<void> {
-        return await axios.delete(`${this.BASE_URL}/${id}`, {
+        await axios.delete(`${this.BASE_URL}/${id}`, {
             headers: this.HEADERS
         });
     }

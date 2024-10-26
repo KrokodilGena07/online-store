@@ -1,11 +1,9 @@
-export interface IProduct {
+import {IProductBase} from '@/models/product/IProductBase';
+
+export interface IProduct extends IProductBase {
     id: string;
-    name: string;
-    description: string;
-    brandId: string;
-    categoryId: string;
-    price: number;
     image: string;
     likes: number;
     dislikes: number;
+    price: number;
 }

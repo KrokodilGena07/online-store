@@ -27,7 +27,7 @@ export class CategoriesApi {
     }
 
     static async deleteCategory(id: string): Promise<void> {
-        return await axios.delete(`${this.BASE_URL}/${id}`, {
+        await axios.delete(`${this.BASE_URL}/${id}`, {
             headers: this.HEADERS
         });
     }

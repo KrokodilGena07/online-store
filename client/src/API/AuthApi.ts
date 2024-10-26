@@ -18,9 +18,9 @@ export class AuthApi {
     }
 
     static async logout(): Promise<void> {
-        return await axios.post(`${this.BASE_URL}/logout`, null, {
+        await axios.post(`${this.BASE_URL}/logout`, null, {
             withCredentials: true
-        }).then(response => response.data);
+        });
     }
 
     static async refresh(): Promise<IAuthResponse> {
