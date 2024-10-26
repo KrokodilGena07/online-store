@@ -17,7 +17,7 @@ export class AuthApi {
         }).then(response => response.data);
     }
 
-    static async logout(): Promise<string> {
+    static async logout(): Promise<void> {
         return await axios.post(`${this.BASE_URL}/logout`, null, {
             withCredentials: true
         }).then(response => response.data);
