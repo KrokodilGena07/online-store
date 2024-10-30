@@ -2,7 +2,7 @@ import axios from 'axios';
 import {IProduct} from '@/models/product/IProduct';
 import {IProductQuery} from '@/models/product/IProductQuery';
 import {IProductsResponse} from '@/models/responses/IProductsResponse';
-import {useUserStore} from '@/store/user/useUserStore';
+import {useUserStore} from '@/store/useUserStore';
 import {IProductInput} from '@/models/product/IProductInput';
 
 export class ProductsApi {
@@ -23,7 +23,7 @@ export class ProductsApi {
         }).then(response => response.data);
     }
 
-    static async fetchProduct(id: string): Promise<IProduct> {
+    static async fetchProduct(id: string): Promise<IProduct | null> {
         return await axios.get(`${this.BASE_URL}/one/${id}`)
             .then(response => response.data);
     }

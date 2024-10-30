@@ -4,8 +4,8 @@ import {IAuthResponse} from '@/models/responses/IAuthResponse';
 import {immer} from 'zustand/middleware/immer';
 
 interface UserStore {
-    user?: IUser;
-    accessToken?: string;
+    user: IUser | null;
+    accessToken: string | null;
     setUser: (response: IAuthResponse) => void;
     removeUser: () => void;
 }

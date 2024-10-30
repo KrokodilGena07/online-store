@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {ICategory} from '@/models/ICategory';
-import {useUserStore} from '@/store/user/useUserStore';
+import {useUserStore} from '@/store/useUserStore';
 
 export class CategoriesApi {
     static BASE_URL = `${__API__}/categories`;

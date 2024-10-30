@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import './Profile.css';
-import {useUserStore} from '@/store/user/useUserStore';
+import {useUserStore} from '@/store/useUserStore';
 import Button from '@/components/UI/button/Button';
 import {Link, useNavigate} from 'react-router-dom';
 import {RouteNames} from '@/router';
@@ -19,7 +19,7 @@ const Profile: FC = () => {
     };
 
     return (
-        <div className='profile-page header-margin'>
+        <div className='profile-page page'>
             <div>
                 {!user.isActivated &&
                     <div className='profile-page__warning'>

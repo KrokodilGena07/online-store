@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {IBrand} from '@/models/brand/IBrand';
-import {useUserStore} from '@/store/user/useUserStore';
+import {useUserStore} from '@/store/useUserStore';
 import {IBrandInput} from '@/models/brand/IBrandInput';
 
 export class BrandsApi {

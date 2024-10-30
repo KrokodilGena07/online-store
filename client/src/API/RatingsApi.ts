@@ -1,4 +1,4 @@
-import {useUserStore} from '@/store/user/useUserStore';
+import {useUserStore} from '@/store/useUserStore';
 import {IBrand} from '@/models/brand/IBrand';
 import axios from 'axios';
 import {IIdInput} from '@/models/IIdInput';
@@ -11,7 +11,7 @@ export class RatingsApi {
         authorization: `Bearer ${this.ACCESS_TOKEN}`
     };
 
-    static async findRating(data: IIdInput): Promise<IRating> {
+    static async findRating(data: IIdInput): Promise<IRating | null> {
         return await axios.get(`${this.BASE_URL}`, {
             params: data,
             headers: this.HEADERS

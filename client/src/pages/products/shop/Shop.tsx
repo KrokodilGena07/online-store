@@ -43,7 +43,7 @@ const Shop: FC = () => {
     const {isLoading: isCategoryLoading, data: categories} = useFetchCategories();
     const fetchCategories = useFetchCategories(state => state.fetchCategories);
 
-    const {data: products, isLoading: isProductsLoading, error} = useFetchProducts();
+    const {data: products, isLoading: isProductsLoading} = useFetchProducts();
     const fetchProducts = useFetchProducts(state => state.fetchProducts);
 
     const isLoading = isBrandLoading || isCategoryLoading || isProductsLoading;

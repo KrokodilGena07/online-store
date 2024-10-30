@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import './Header.css';
 import DesktopHeader from '@/components/UI/header/desktop/DesktopHeader';
 import MobileHeader from '@/components/UI/header/mobile/MobileHeader';
-import {useUserStore} from '@/store/user/useUserStore';
+import {useUserStore} from '@/store/useUserStore';
 import {headerLinks} from '@/utils/headerLinks';
 import {useNavigate} from 'react-router-dom';
 import {RouteNames} from '@/router';

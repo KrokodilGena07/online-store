@@ -1,0 +1,16 @@
+.bad-request-error {
+    flex-direction: column;
+}
+
+.bad-request-error__text {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.bad-request-error__button {
+    background-color: #000000 !important;
+}
+
+.bad-request-error__button:hover {
+    background-color: #1c1c1c !important;
+}

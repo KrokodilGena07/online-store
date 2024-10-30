@@ -28,13 +28,19 @@
     height: 100vh;
 }
 
-.header-margin {
+.page {
+    padding: 0 10vw;
     position: relative;
     top: calc(var(--desktop-header-height) + var(--header-margin));
 }
 
+.font {
+    font-family: Montserrat, system-ui;
+}
+
 @media screen and (width < 1000px) {
-    .header-margin {
+    .page {
+        padding: 0 8px;
         top: calc(var(--mobile-header-height) + var(--header-margin));
     }
 }

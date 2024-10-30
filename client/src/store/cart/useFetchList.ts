@@ -6,7 +6,7 @@ import {ICartProduct} from '@/models/cart/ICartProduct';
 
 interface FetchListStore {
     isLoading: boolean;
-    data: ICartProduct[];
+    data: ICartProduct[] | null;
     fetchList: (id: string) => void;
 }
 
@@ -19,13 +19,19 @@ export const useFetchList = create<FetchListStore>()(immer(set => ({
             await CartApi.fetchCartItems(id).then(async list => {
                 const ids = list.map(item => item.productId);
                 const products = await ProductsApi.fetchProductsByIds(ids);
-                const data = products.map(
-                    (product, index) => ({
-                            ...product,
-                            count: list[index].count,
-                            cartId: list[index].id
+                const data = [];
+                for (let i = 0; i < ids.length; i++) {
+                    for (let j = 0; j < ids.length; j++) {
+                        if (products[i].id === list[j].productId) {
+                            data.push({
+                                ...products[i],
+                                cartId: list[j].id,
+                                count: list[j].count,
+                            });
+                            break
+                        }
                     }
-                ));
+                }
                 set({isLoading: false, data});
             });
         } catch (e) {

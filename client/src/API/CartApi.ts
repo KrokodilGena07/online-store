@@ -1,4 +1,4 @@
-import {useUserStore} from '@/store/user/useUserStore';
+import {useUserStore} from '@/store/useUserStore';
 import axios from 'axios';
 import {ICartItem} from '@/models/cart/ICartItem';
 import {IIdInput} from '@/models/IIdInput';
@@ -10,7 +10,7 @@ export class CartApi {
         authorization: `Bearer ${this.ACCESS_TOKEN}`
     };
 
-    static async fetchCartItems(id: string): Promise<ICartItem[]> {
+    static async fetchCartItems(id: string): Promise<ICartItem[] | null> {
         return await axios.get(`${this.BASE_URL}/list/${id}`, {
             headers: this.HEADERS
         }).then(response => response.data)

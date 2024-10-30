@@ -1,16 +1,13 @@
 import {create} from 'zustand';
 import {immer} from 'zustand/middleware/immer';
-import {AxiosError} from 'axios';
-import {IErrorData} from '@/models/error/IErrorData';
 import {ProductsApi} from '@/API/ProductsApi';
 import {IProductQuery} from '@/models/product/IProductQuery';
 import {IProductsResponse} from '@/models/responses/IProductsResponse';
 
 interface FetchProductsStore {
     data: IProductsResponse;
-    error?: AxiosError<IErrorData>;
     isLoading: boolean;
-    fetchProducts: (query: IProductQuery) => void;
+    fetchProducts: (data: IProductQuery) => void;
 }
 
 export const useFetchProducts = create<FetchProductsStore>()(immer(set => ({
@@ -23,7 +20,7 @@ export const useFetchProducts = create<FetchProductsStore>()(immer(set => ({
             const data = await ProductsApi.fetchProducts(query);
             set({isLoading: false, data});
         } catch (e) {
-            set({isLoading: false, error: e});
+            set({isLoading: false});
         }
     }
 })));

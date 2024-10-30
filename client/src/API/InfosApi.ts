@@ -1,4 +1,4 @@
-import {useUserStore} from '@/store/user/useUserStore';
+import {useUserStore} from '@/store/useUserStore';
 import axios from 'axios';
 import {IInfo} from '@/models/info/IInfo';
 import {IInfoInput} from '@/models/info/IInfoInput';
