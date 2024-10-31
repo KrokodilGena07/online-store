@@ -16,7 +16,7 @@ const ProductItem: FC<ProductItemProps> = ({product}) => {
     };
 
     return (
-        <div className='product-item'>
+        <div className='product-item font'>
             <div>
                 <img
                     src={product.image}

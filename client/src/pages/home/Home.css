@@ -1,15 +1,10 @@
-.home-page {
-    top: calc(var(--desktop-header-height) + var(--header-margin));
-    padding: 0 10vw;
-}
-
 .home-page__text {
-    font-family: Montserrat, system-ui;
     font-weight: 700;
     margin-bottom: 10px;
 }
 
-.home-page__brands-list {
+.home-page__brands-list,
+.home-page__products-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -36,35 +31,6 @@
 .home-page__products {
     margin-top: 20px;
     padding-bottom: 10px;
-}
-
-.home-page__products-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.home-page__error {
-    font-family: Montserrat, system-ui;
-    margin-bottom: 10px;
-    height: calc(100vh - var(--desktop-header-height) - var(--header-margin));
-    flex-direction: column;
-}
-
-.home-page__error-button {
-    margin-top: 10px;
-    background-color: #000000;
-}
-
-.home-page__error-button:hover {
-    background-color: rgba(0, 0, 0, 0.89);
-}
-
-@media screen and (width < 1000px) {
-    .home-page {
-        padding: 0 8px;
-        top: calc(var(--mobile-header-height) + var(--header-margin));
-    }
 }
 
 @media screen and (max-width: 800px) {

@@ -16,7 +16,7 @@ export class CartApi {
         }).then(response => response.data)
     }
 
-    static async fetchCartItem(data: IIdInput): Promise<ICartItem> {
+    static async fetchCartItem(data: IIdInput): Promise<ICartItem | null> {
         return await axios.get(`${this.BASE_URL}/one`, {
             params: data,
             headers: this.HEADERS

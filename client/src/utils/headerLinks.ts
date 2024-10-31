@@ -1,7 +1,7 @@
 import {INavItem} from '@/models/UI/INavItem';
 import {RouteNames} from '@/router';
-import CartIcon from '@/assets/svg/cart.svg';
-import AuthIcon from '@/assets/svg/auth.svg';
+import CartIcon from '@/assets/svg/navIcons/cart.svg';
+import AuthIcon from '@/assets/svg/navIcons/auth.svg';
 import {IUser} from '@/models/user/IUser';
 
 export function headerLinks(user: IUser): INavItem[] {

@@ -4,7 +4,7 @@ import {Link, useLocation} from 'react-router-dom';
 import {RouteNames} from '@/router';
 import logo from '@/assets/images/logo.png';
 import Button from '@/components/UI/button/Button';
-import Menu from '@/assets/svg/menu.svg';
+import Menu from '@/assets/svg/navIcons/menu.svg';
 import Close from '@/assets/svg/close.svg';
 import {INavItem} from '@/models/UI/INavItem';
 import Input from '@/components/UI/input/Input';

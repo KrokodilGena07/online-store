@@ -7,7 +7,7 @@ import {IRating} from '@/models/IRating';
 interface RatingsStore {
     data: IRating | null;
     isLoading: boolean;
-    findRating: (data: IIdInput) => void;
+    findRating: (data: IIdInput) => Promise<void>;
     like: (data: IIdInput) => Promise<void>;
     dislike: (data: IIdInput) => Promise<void>;
 }
@@ -16,7 +16,7 @@ export const useRatingsStore = create<RatingsStore>()(immer(set => ({
     data: null,
     isLoading: false,
     findRating: async (data: IIdInput) => {
-        set({isLoading: true});
+        set({isLoading: true, data: null});
         try {
             const rating = await RatingsApi.findRating(data);
             set({data: rating, isLoading: false});

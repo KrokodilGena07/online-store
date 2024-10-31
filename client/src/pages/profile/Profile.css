@@ -1,5 +1,4 @@
 .profile-page {
-    padding: 0 10vw;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -39,7 +38,6 @@
 
 @media screen and (width < 1000px) {
     .profile-page {
-        padding: 0 8px;
         height: calc(100vh - (var(--mobile-header-height) + var(--header-margin)));
     }
 }

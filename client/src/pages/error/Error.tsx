@@ -2,11 +2,10 @@ import React, {FC} from 'react';
 import './Error.css';
 import ErrorIcon from '@/assets/svg/error.svg';
 import Button from '@/components/UI/button/Button';
-import {useNavigate} from 'react-router-dom';
+import {useNavBack} from '@/hooks/useNavBack';
 
 const Error: FC = () => {
-    const navigate = useNavigate();
-    const navigateBack = () => navigate(-1);
+    const navBack = useNavBack();
 
     return (
         <div className='error-page center-container'>
@@ -14,14 +13,14 @@ const Error: FC = () => {
                 <ErrorIcon
                     className='error-page__content-icon'
                 />
-                <h1 className='error-page__content-text'>
+                <h1 className='font error-page__content-text'>
                     Page not found
                 </h1>
             </div>
             <Button
                 size='lg'
-                onClick={navigateBack}
-                className='error-page__button'
+                onClick={navBack}
+                className='error-page__button button_black'
             >
                 Back
             </Button>

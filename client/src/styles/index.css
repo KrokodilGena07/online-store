@@ -44,3 +44,11 @@
         top: calc(var(--mobile-header-height) + var(--header-margin));
     }
 }
+
+.button_black {
+    background-color: #000000 !important;
+}
+
+.button_black:hover {
+    background-color: #1c1c1c !important;
+}
