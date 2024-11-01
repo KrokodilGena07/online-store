@@ -2,85 +2,226 @@ import React, {FC, useEffect, useState} from 'react';
 import './Redactor.css';
 import {useFetchProduct} from '@/store/products/useFetchProduct';
 import Loader from '@/components/UI/loader/Loader';
+import {IInfo} from '@/models/info/IInfo';
+import ProductInfos from '@/components/admin/redactor/ProductInfos';
+import FormInput from '@/components/admin/redactor/FormInput';
+import Dropdown from '@/components/UI/dropdown/Dropdown';
+import {useFetchBrands} from '@/store/brands/useFetchBrands';
+import {useFetchCategories} from '@/store/categories/useFetchCategories';
 import Button from '@/components/UI/button/Button';
-import {useNavigate} from 'react-router-dom';
-import Input from '@/components/UI/input/Input';
-import {IProduct} from '@/models/product/IProduct';
+import {useProductsStore} from '@/store/products/useProductsStore';
+import {useNavBack} from '@/hooks/useNavBack';
+import {convertBase64ToFile} from '@/utils/convertBase64ToFile';
+import {IErrorData} from '@/models/error/IErrorData';
+import {IProductInput} from '@/models/product/IProductInput';
 
 const Redactor: FC = () => {
-    const locationList = location.pathname.split('/');
-    const id = locationList[locationList.length - 1];
+    const locationArray = location.pathname.split('/');
+    const id = locationArray[locationArray.length - 1];
 
-    const navigate = useNavigate();
-    const navBack = () => navigate(-1);
+    const navBack = useNavBack();
 
-    const {isLoading, data: product, error} = useFetchProduct();
+    const {data: product, isLoading: isProductLoading} = useFetchProduct();
     const fetchProduct = useFetchProduct(state => state.fetchProduct);
 
-    const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null);
+    const {data: brands, isLoading: isBrandsLoading} = useFetchBrands();
+    const fetchBrands = useFetchBrands(state => state.fetchBrands);
+
+    const [errorData, setErrorData] = useState<IErrorData>(null);
+
+    const {
+        createProduct,
+        updateProduct,
+        deleteProduct,
+        error,
+        isLoading: isProductMutationLoading
+    } = useProductsStore();
+
+    const createProductHandler = async () => {
+        await createProduct({
+            ...newProduct,
+            brandId,
+            categoryId,
+            image
+        }).then(() => {
+            if (!error) {
+                navBack();
+            }
+            setErrorData(error);
+        })
+    };
+
+    const updateProductHandler = async () => {
+        await updateProduct({
+            ...product,
+            brandId,
+            categoryId,
+            image,
+            price: String(product.price)
+        }).then(() => fetchProduct(id));
+    };
+
+    const deleteProductHandler = async () => {
+        deleteProduct(id);
+        navBack();
+    };
+
+    const {data: categories, isLoading: isCategoriesLoading} = useFetchCategories();
+    const fetchCategories = useFetchCategories(state => state.fetchCategories);
+
+    const [newProduct, setNewProduct] = useState<IProductInput>(null);
+    const [infos, setInfos] = useState<IInfo[]>(null);
+
+    const [brandId, setBrandId] = useState(null);
+    const [categoryId, setCategoryId] = useState(null);
+
+    const [image, setImage] = useState<File>(null);
 
     useEffect(() => {
         fetchProduct(id);
+        fetchBrands();
+        fetchCategories();
     }, []);
     useEffect(() => {
         if (product) {
-            setCurrentProduct(product);
+            const file = convertBase64ToFile(product.image, 'image.png');
+            setImage(file);
+            setNewProduct({
+                ...product,
+                image: file,
+                price: String(product.price)
+            });
+            setInfos(product.infos);
+            setBrandId(product.brandId);
+            setCategoryId(product.categoryId);
+        }
+        if (!product && !isProductLoading) {
+            setNewProduct({
+                name: '', price: ''
+            } as IProductInput);
         }
     }, [product]);
+
+    const isLoading = isProductLoading || isBrandsLoading || isCategoriesLoading;
 
     if (isLoading) {
         return <Loader/>;
     }
 
-    if (error) {
-        return (
-            <div className='center-container redactor-page__error'>
-                <h1 className='font'>{error}</h1>
-                <Button
-                    size='lg'
-                    onClick={navBack}
-                    className='redactor-page__error-button'
-                >
-                    Back
-                </Button>
-            </div>
-        );
-    }
+    console.log(newProduct);
 
     return (
-        <div className='redactor-page header-margin'>
-            <h2 className='font'>
-                Product body
-            </h2>
-            <label
-                htmlFor='name'
-                className='redactor-page__field-label font'
-            >
-                Name
-            </label>
-            <Input
-                value={currentProduct?.name}
-                onChange={v => setCurrentProduct({...currentProduct, name: v})}
-                size='lg'
+        <div className='page redactor-page'>
+            <h2 className='font redactor-page-margin'>Product body</h2>
+            <FormInput
+                value={newProduct?.name}
                 id='name'
-                className='redactor-page__field-input'
+                onChange={v => setNewProduct({...newProduct, name: v})}
+                label='Name'
             />
             <label
                 htmlFor='description'
-                className='redactor-page__field-label font'
+                className='font redactor-page__label'
             >
                 Description
             </label>
-            <Input
-                value={currentProduct?.description}
-                onChange={v => setCurrentProduct({...currentProduct, description: v})}
-                size='lg'
+            <textarea
                 id='description'
-                className='redactor-page__field-input'
+                className='input redactor-page__textarea'
+                wrap='hard'
+                cols={60}
+                rows={10}
+                value={newProduct?.description}
+                onChange={v => setNewProduct({
+                    ...newProduct, description: v.target.value}
+                )}
             />
-            <h2 className='font'>
-                Product infos
-            </h2>
+            <FormInput
+                value={newProduct?.price}
+                id='price'
+                onChange={v => setNewProduct({...newProduct, price: v})}
+                label='Price'
+            />
+            <p className='redactor-page__label font'>Brands</p>
+            <Dropdown
+                value={brandId}
+                onChange={setBrandId}
+                options={brands?.map(item => ({title: item.name, value: item.id}))}
+                variant='primary'
+                className='redactor-page__input'
+            />
+            <p className='redactor-page__label font'>Categories</p>
+            <Dropdown
+                value={categoryId}
+                onChange={setCategoryId}
+                options={categories?.map(item => ({title: item.name, value: item.id}))}
+                variant='default'
+                className='redactor-page__input'
+            />
+            <input
+                type="file"
+                id='file'
+                className='redactor-page__none'
+                onChange={v => setImage(v.target.files[0])}
+            />
+            <p className='redactor-page__label font'>Image</p>
+            <label htmlFor='file'>
+                <div className='redactor-page__file-input font'>
+                    {image?.name || 'select file'}
+                </div>
+            </label>
+            {!errorData?.errors.length && errorData?.message &&
+                <p>123</p>
+            }
+            {!product &&
+                <Button
+                    variant='primary'
+                    className='redactor-page__save-product-button'
+                    onClick={createProductHandler}
+                >
+                    {isProductMutationLoading ?
+                        'loading...'
+                        :
+                        'Create'
+                    }
+                </Button>
+            }
+            {product &&
+                <div className='redactor-page__buttons'>
+                    <Button
+                        variant='primary'
+                        className='redactor-page__save-product-button'
+                        onClick={updateProductHandler}
+                    >
+                        {isProductMutationLoading ?
+                            'loading...'
+                            :
+                            'Save'
+                        }
+                    </Button>
+                    <Button
+                        className='redactor-page__save-product-button'
+                        onClick={deleteProductHandler}
+                    >
+                        {isProductMutationLoading ?
+                            'loading...'
+                            :
+                            'Delete'
+                        }
+                    </Button>
+                </div>
+            }
+            {product &&
+                <h2 className='font redactor-page-margin'>Product infos</h2>
+            }
+            {product &&
+                <ProductInfos
+                    id={id}
+                    fetchProduct={fetchProduct}
+                    infos={infos}
+                    setInfos={setInfos}
+                />
+            }
         </div>
     );
 };

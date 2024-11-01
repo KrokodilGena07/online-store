@@ -11,8 +11,8 @@ interface BrandsStore {
     isLoading: boolean;
     error: IErrorData | null;
     createBrand: (data: IBrandInput) => void;
-    updateBrand: (data: IBrand) => void;
-    deleteBrand: (id: string) => void;
+    updateBrand: (data: IBrand) => Promise<void>;
+    deleteBrand: (id: string) => Promise<void>;
 }
 
 export const useBrandsStore = create<BrandsStore>()(immer(set => ({

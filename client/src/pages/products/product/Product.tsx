@@ -11,12 +11,16 @@ import LikeIcon from '@/assets/svg/ratingIcon/likeIcon.svg';
 import DislikeIcon from '@/assets/svg/ratingIcon/dislikeIcon.svg';
 import {useRatingsStore} from '@/store/useRatingsStore';
 import {price} from '@/utils/price';
+import {Link} from 'react-router-dom';
+import {RouteNames} from '@/router';
 
 const Product: FC = () => {
     const pathnameArray = location.pathname.split('/');
     const id = pathnameArray[pathnameArray.length - 1];
 
     const {user} = useUserStore();
+
+    const isAdmin = user?.role === 'ADMIN';
 
     const {data: product, isLoading: isProductLoading, error} = useFetchProduct();
     const fetchProduct = useFetchProduct(state => state.fetchProduct);
@@ -118,6 +122,11 @@ const Product: FC = () => {
                                 'Add to cart'
                             }
                         </Button>
+                        {isAdmin &&
+                            <Link to={`/admin/redactor/${id}`}>
+                                <Button size='lg'>Redactor</Button>
+                            </Link>
+                        }
                     </div>
                     <div className="product-page-content__buttons-group">
                         <div

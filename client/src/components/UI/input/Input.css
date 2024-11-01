@@ -8,7 +8,7 @@
 }
 
 .input:hover {
-    background-color: #e7e7e7;
+    background-color: var(--very-light-grey);
 }
 
 .input:focus {
@@ -31,7 +31,7 @@
 }
 
 .input:disabled {
-    background-color: #d7d7d7;
+    background-color: #DDDDDD;
     outline: #AAAAAA 1px solid;
     cursor: not-allowed;
 }

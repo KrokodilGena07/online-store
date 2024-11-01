@@ -1,4 +1,4 @@
-import React, {FC, Suspense, useEffect} from 'react';
+import React, {FC, Suspense, useEffect, useState} from 'react';
 import './styles/index.css';
 import AppRouter from '@/components/AppRouter';
 import Header from '@/components/UI/header/Header';

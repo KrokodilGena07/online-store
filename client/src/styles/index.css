@@ -5,6 +5,13 @@
     --blue: #0088FF;
     --light-blue: #1597ff;
 
+    --light-grey: #b4b4b4;
+    --very-light-grey: #e7e7e7;
+    --light-dark: #1c1c1c;
+
+    --icon-color: #cbcbcb;
+    --dark-icon-color: #b6b6b6;
+
     --mobile-header-height: 66px;
     --desktop-header-height: 85px;
     --header-margin: 10px;
@@ -50,5 +57,5 @@
 }
 
 .button_black:hover {
-    background-color: #1c1c1c !important;
+    background-color: var(--light-dark) !important;
 }

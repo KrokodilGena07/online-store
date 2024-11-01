@@ -11,9 +11,9 @@ interface InfosStore {
     isLoading: boolean;
     data: IInfo | null;
     error: IErrorData | null;
-    createInfo: (data: IInfoInput) => void;
-    updateInfo: (data: IInfoUpdateInput) => void;
-    deleteInfo: (id: string) => void;
+    createInfo: (data: IInfoInput) => Promise<void>;
+    updateInfo: (data: IInfoUpdateInput) => Promise<void>;
+    deleteInfo: (id: string) => Promise<void>;
 }
 
 export const useInfosStore = create<InfosStore>()(immer(set => ({

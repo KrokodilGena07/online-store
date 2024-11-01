@@ -10,8 +10,8 @@ interface ProductsStore {
     data: IProduct | null;
     isLoading: boolean;
     error: IErrorData | null;
-    createProduct: (data: IProductInput) => void;
-    updateProduct: (data: IProductInput) => void;
+    createProduct: (data: IProductInput) => Promise<void>;
+    updateProduct: (data: IProductInput) => Promise<void>;
     deleteProduct: (id: string) => void;
 }
 

@@ -57,12 +57,12 @@ const Dropdown: FC<DropdownProps> = props => {
             </div>
             {isOpen &&
                 <div className='dropdown__menu'>
-                    {!props.options.length &&
+                    {!props.options?.length &&
                         <div className='dropdown__menu-no-data'>
                             No data
                         </div>
                     }
-                    {props.options.map(option =>
+                    {props.options?.map(option =>
                         <div
                             key={option.value}
                             onClick={() => optionHandler(option.value)}

@@ -44,7 +44,7 @@ const Cart: FC = () => {
         fetchList(user?.id);
     }, []);
 
-    if (isActivated) { // TODO change flag
+    if (!isActivated) {
         return <BadRequestError text='Activate your email to use this page'/>;
     }
 

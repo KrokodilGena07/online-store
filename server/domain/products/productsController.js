@@ -4,10 +4,10 @@ const ApiError = require('../../error/ApiError');
 const isImage = require('../../validators/isImage');
 const isJSON = require('../../validators/isJSON');
 
-class ProductsController {
-    DATA_ERROR_TEXT = 'data is invalid';
-    IMAGE_ERROR_TEXT = 'image is invalid';
+const DATA_ERROR_TEXT = 'data is invalid';
+const IMAGE_ERROR_TEXT = 'image is invalid';
 
+class ProductsController {
     async getOneById(req, res, next) {
         try {
             const {id} = req.params;
@@ -21,7 +21,6 @@ class ProductsController {
     async getListByIds(req, res, next) {
         try {
             const {list} = req.query;
-            console.log(list);
             const data = isJSON(list, 'list is invalid');
             if (!Array.isArray(data)) {
                 return next(ApiError.badRequest('list is wrong'));
@@ -54,10 +53,10 @@ class ProductsController {
 
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest(this.DATA_ERROR_TEXT, errors.array()));
+                return next(ApiError.badRequest(DATA_ERROR_TEXT, errors.array()));
             }
             if (!isImage(files?.image.name)) {
-                return next(ApiError.badRequest(this.IMAGE_ERROR_TEXT));
+                return next(ApiError.badRequest(IMAGE_ERROR_TEXT));
             }
 
             const data = await productsModel.create(
@@ -76,10 +75,10 @@ class ProductsController {
 
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest(this.DATA_ERROR_TEXT, errors.array()));
+                return next(ApiError.badRequest(DATA_ERROR_TEXT, errors.array()));
             }
             if (!isImage(files?.image.name)) {
-                return next(ApiError.badRequest(this.IMAGE_ERROR_TEXT));
+                return next(ApiError.badRequest(IMAGE_ERROR_TEXT));
             }
 
             const data = await productsModel.update(

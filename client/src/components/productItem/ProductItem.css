@@ -8,7 +8,13 @@
     font-weight: 400;
 }
 
-.product-item__body-image {
+.product-item__image-container {
+    display: flex;
+    justify-content: center;
+}
+
+.product-item__image {
+    width: 80%;
     max-width: 300px;
     margin-bottom: 10px;
 }

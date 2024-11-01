@@ -10,7 +10,7 @@ interface FetchProductsStore {
     fetchProducts: (data: IProductQuery) => void;
 }
 
-export const useFetchProducts = create<FetchProductsStore>()(immer(set => ({
+export const useFetchProducts = create<FetchProductsStore>()(immer((set, get) => ({
     data: null,
     error: null,
     isLoading: false,

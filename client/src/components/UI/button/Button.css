@@ -26,11 +26,11 @@
 }
 
 .button_default:hover {
-    background-color: #b4b4b4;
+    background-color: var(--light-grey);
 }
 
 .button_icon {
-    background-color: #cbcbcb;
+    background-color: var(--icon-color);
     padding: 5px;
 
     display: flex;
@@ -38,7 +38,7 @@
 }
 
 .button_icon:hover {
-    background-color: #b6b6b6;
+    background-color: var(--dark-icon-color);
 }
 
 .button_sm {

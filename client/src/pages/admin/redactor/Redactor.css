@@ -1,35 +1,63 @@
 .redactor-page {
-    padding: 0 10vw;
+    padding-bottom: 10px;
 }
 
-.redactor-page__error {
-    flex-direction: column;
-    gap: 8px;
+.redactor-page-margin {
+    margin-bottom: 10px;
 }
 
-.redactor-page__error-button {
-    background-color: #000000 !important;
-}
-
-.redactor-page__error-button:hover {
-    background-color: #2f2f2f !important;
-}
-
-.redactor-page__field-label {
-    font-weight: 600;
-    font-size: x-large;
-    color: var(--blue);
+.redactor-page__label {
     display: block;
-    margin-top: 10px;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
+    font-weight: 500;
 }
 
-.redactor-page__field-input {
-    width: 100%;
+.redactor-page__input {
+    margin-bottom: 15px;
+}
+
+.redactor-page__save-button {
+    display: block;
+}
+
+.redactor-page__buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.redactor-page__info {
+    border: 2px #AAAAAA solid;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.redactor-page__none {
+    display: none;
+}
+
+.redactor-page__file-input {
+    border: 2px solid #AAAAAA;
+    border-radius: 4px;
+    padding: 6px;
+    color: var(--blue);
+    width: fit-content;
+    cursor: pointer;
+}
+
+.redactor-page__save-product-button {
+    margin: 10px 0;
+}
+
+.redactor-page__textarea {
+    padding: 8px;
+    max-width: calc(80vw - 17px);
+    max-height: 500px;
 }
 
 @media screen and (width < 1000px) {
-    .redactor-page {
-        padding: 0 8px;
+    .redactor-page__textarea {
+        max-width: calc(100vw - 32px);
     }
 }

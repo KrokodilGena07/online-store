@@ -18,11 +18,13 @@ const ProductItem: FC<ProductItemProps> = ({product}) => {
     return (
         <div className='product-item font'>
             <div>
-                <img
-                    src={product.image}
-                    alt={product.name}
-                    className='product-item__body-image'
-                />
+                <div className='product-item__image-container'>
+                    <img
+                        src={product.image}
+                        alt={product.name}
+                        className='product-item__image'
+                    />
+                </div>
                 <h2>{product.name}</h2>
                 <h3>{price(product.price)}</h3>
             </div>

@@ -9,9 +9,9 @@ interface CategoriesStore {
     data: ICategory | null;
     isLoading: boolean;
     error: IErrorData | null;
-    createCategory: (name: string) => void;
-    updateCategory: (data: ICategory) => void;
-    deleteCategory: (id: string) => void;
+    createCategory: (name: string) => Promise<void>;
+    updateCategory: (data: ICategory) => Promise<void>;
+    deleteCategory: (id: string) => Promise<void>;
 }
 
 export const useCategoriesStore = create<CategoriesStore>()(immer(set => ({

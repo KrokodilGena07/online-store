@@ -1,0 +1,46 @@
+.admin-page__text {
+    margin: 10px 0;
+}
+
+.admin-page__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.admin-page__item {
+    border: 2px solid #AAAAAA;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.admin-page__item:hover {
+    cursor: pointer;
+    color: var(--blue);
+}
+
+.admin-page__item_selected {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.admin-page__buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.admin-page__no-items-text {
+    color: #6c6c6c;
+    font-weight: 500;
+}
+
+.admin-page__modal {
+    height: 100%;
+}
+
+.admin-page__modal-button {
+    margin-left: 10px;
+}

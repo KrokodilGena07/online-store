@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import './Input.css';
 
 interface InputProps {
-    value: string;
+    value: any;
     type?: React.HTMLInputTypeAttribute;
     onChange: (value: string) => void;
     size?: 'sm' | 'md' | 'lg';
