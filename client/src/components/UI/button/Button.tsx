@@ -8,6 +8,7 @@ interface ButtonProps {
     size?: 'sm' | 'md' | 'lg';
     className?: string;
     disabled?: boolean;
+    type?: 'reset' | 'submit' | 'button';
 }
 
 const Button: FC<ButtonProps> = props => {
@@ -22,6 +23,7 @@ const Button: FC<ButtonProps> = props => {
             onClick={props.onClick}
             className={`button ${style} ${props.className}`}
             disabled={props.disabled}
+            type={props.type}
         >
             {props.children}
         </button>

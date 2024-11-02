@@ -1,17 +1,17 @@
-import React, {FC, Suspense, useEffect, useState} from 'react';
+import React, {FC, Suspense, useEffect} from 'react';
 import './styles/index.css';
 import AppRouter from '@/components/AppRouter';
 import Header from '@/components/UI/header/Header';
 import Loader from '@/components/UI/loader/Loader';
-import {useRefreshStore} from '@/store/auth/useRefreshStore';
+import {useRefresh} from '@/store/auth/useRefresh';
 import {useUserStore} from '@/store/useUserStore';
-import {useLogoutStore} from '@/store/auth/useLogoutStore';
+import {useAuthStore} from '@/store/auth/useAuthStore';
 
 const App: FC = () => {
-    const {data, error, isLoading} = useRefreshStore();
+    const {data, error, isLoading} = useRefresh();
 
-    const refresh = useRefreshStore(state => state.refresh);
-    const logout = useLogoutStore(state => state.logout);
+    const refresh = useRefresh(state => state.refresh);
+    const {logout} = useAuthStore();
 
     const {setUser, removeUser} = useUserStore();
 
@@ -20,7 +20,7 @@ const App: FC = () => {
     }, []);
 
     useEffect(() => {
-        if (error?.response?.status === 401) {
+        if (error?.status === 401) {
             logout();
             removeUser();
         }

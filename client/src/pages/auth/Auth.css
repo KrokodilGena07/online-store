@@ -47,7 +47,7 @@
     text-align: center;
 }
 
-.auth-page__form-field-error {
+.auth-page__form-error-text {
     font-family: Montserrat, system-ui;
     margin-top: 2px;
     color: #FF0000;
@@ -62,4 +62,19 @@
 .auth-page__form-input_wrong:focus {
     background-color: #FFFFFF;
     outline-color: #FF0000;
+}
+
+.auth-page__form-password {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-page__form-password-input {
+    width: 100%;
+}
+
+.auth-page__form-eye-icon {
+    color: #000000;
+    width: 28px;
+    height: 28px;
 }

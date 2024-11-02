@@ -2,17 +2,16 @@ import {create} from 'zustand';
 import {immer} from 'zustand/middleware/immer';
 import {IAuthResponse} from '@/models/responses/IAuthResponse';
 import {AxiosError} from 'axios';
-import {IErrorData} from '@/models/error/IErrorData';
 import {AuthApi} from '@/API/AuthApi';
 
 interface RefreshStore {
     data: IAuthResponse;
-    error?: AxiosError<IErrorData>;
+    error: AxiosError | null;
     isLoading: boolean;
     refresh: () => void;
 }
 
-export const useRefreshStore = create<RefreshStore>()(immer(set => ({
+export const useRefresh = create<RefreshStore>()(immer(set => ({
     data: null,
     error: null,
     isLoading: false,

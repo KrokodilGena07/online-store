@@ -4,11 +4,11 @@ import {useUserStore} from '@/store/useUserStore';
 import Button from '@/components/UI/button/Button';
 import {Link, useNavigate} from 'react-router-dom';
 import {RouteNames} from '@/router';
-import {useLogoutStore} from '@/store/auth/useLogoutStore';
+import {useAuthStore} from '@/store/auth/useAuthStore';
 
 const Profile: FC = () => {
     const {user, removeUser} = useUserStore();
-    const logout = useLogoutStore(state => state.logout);
+    const {logout, isLoading} = useAuthStore();
 
     const navigate = useNavigate();
 
@@ -51,7 +51,7 @@ const Profile: FC = () => {
                     size='lg'
                     onClick={signOut}
                 >
-                    Logout
+                    {isLoading ? 'Loading...' : 'Logout'}
                 </Button>
             </div>
         </div>

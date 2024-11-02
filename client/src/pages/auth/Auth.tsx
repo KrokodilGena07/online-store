@@ -4,33 +4,34 @@ import {RouteNames} from '@/router';
 import Input from '@/components/UI/input/Input';
 import Button from '@/components/UI/button/Button';
 import {Link, useNavigate} from 'react-router-dom';
-import {useLoginStore} from '@/store/auth/useLoginStore';
-import {AxiosError} from 'axios';
-import {useRegistrationStore} from '@/store/auth/useRegistrationStore';
 import {IUserInput} from '@/models/user/IUserInput';
-import {IErrorData} from '@/models/error/IErrorData';
 import {IError} from '@/models/error/IError';
 import {useUserStore} from '@/store/useUserStore';
+import {AxiosError} from 'axios';
+import {IErrorData} from '@/models/error/IErrorData';
+import {useAuthStore} from '@/store/auth/useAuthStore';
+import EyeIcon from '@/assets/svg/eyeIcons/eyeIcon.svg';
+import EyeOffIcon from '@/assets/svg/eyeIcons/eyeOffIcon.svg';
 
 const Auth: FC = () => {
     const [newUser, setNewUser] = useState<IUserInput>({
         username: '', email: '', password: ''
     });
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [errors, setErrors] = useState<IError[] | null>(null);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [isPassword, setIsPassword] = useState(true);
 
-    const {isLoading: lL} = useLoginStore();
-    const {isLoading: rL} = useRegistrationStore();
-
-    const login = useLoginStore(state => state.login);
-    const registrate = useRegistrationStore(state => state.registration);
+    const {
+        registration,
+        login,
+        isLoading
+    } = useAuthStore();
 
     const setUser = useUserStore(state => state.setUser);
     const navigate = useNavigate();
 
     const isLogin = location.pathname === RouteNames.AUTH_LOGIN;
-    const isLoading = lL || rL;
-    const authorize = isLogin ? login : registrate;
+    const authorize = isLogin ? login : registration;
 
     const inputError = (fieldName: string): IError | undefined => {
         return errors?.find(error => error.path === fieldName);
@@ -45,29 +46,26 @@ const Auth: FC = () => {
 
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setErrorMessage(null);
         await authorize(newUser)
             .then(data => {
-                setUser(data);
-                navigate(RouteNames.HOME);
+                if (data) {
+                    setUser(data);
+                    navigate(RouteNames.HOME);
+                }
             })
-            .catch((error: AxiosError<IErrorData>) => {
-                if (error.code === 'ERR_NETWORK') {
-                    setErrorMessage('Looks like something went wrong');
-                    return;
+            .catch(err => {
+                const errorData = (err as AxiosError<IErrorData>).response.data;
+                if (!errorData.errors) {
+                    setErrorMessage(errorData.message);
                 }
-                const data = error.response.data;
-                if (!data?.errors) {
-                    setErrorMessage(data.message);
-                }
-                setErrors(data.errors);
+                setErrors(errorData.errors);
             })
     };
 
     useEffect(() => {
         setNewUser({username: '', email: '', password: ''});
-        setErrorMessage(null);
         setErrors(null);
+        setErrorMessage(null);
     }, [location.pathname]);
 
     const link = <Link
@@ -99,7 +97,7 @@ const Auth: FC = () => {
                             className={inputError('username') && 'auth-page__form-input_wrong'}
                         />
                         {!!inputError('username') &&
-                            <span className='auth-page__form-field-error'>{inputError('username').msg}</span>
+                            <span className='auth-page__form-error-text'>{inputError('username').msg}</span>
                         }
                     </>
                 }
@@ -118,7 +116,7 @@ const Auth: FC = () => {
                     className={inputError('email') && 'auth-page__form-input_wrong'}
                 />
                 {!!inputError('email') &&
-                    <span className='auth-page__form-field-error'>{inputError('email').msg}</span>
+                    <span className='auth-page__form-error-text'>{inputError('email').msg}</span>
                 }
                 <label
                     htmlFor="password"
@@ -126,18 +124,33 @@ const Auth: FC = () => {
                 >
                     Password
                 </label>
-                <Input
-                    value={newUser.password}
-                    type='password'
-                    onChange={v => newUserHandler(v, 'password')}
-                    id='password'
-                    size='lg'
-                    className={inputError('password') && 'auth-page__form-input_wrong'}
-                />
+                <div className='auth-page__form-password'>
+                    <Input
+                        value={newUser.password}
+                        type={isPassword ? 'password' : 'text'}
+                        onChange={v => newUserHandler(v, 'password')}
+                        id='password'
+                        size='lg'
+                        className={(inputError('password') && 'auth-page__form-input_wrong') + ' auth-page__form-password-input'}
+                    />
+                    <div>
+                        <Button
+                            variant='icon'
+                            onClick={() => setIsPassword(!isPassword)}
+                            type='button'
+                        >
+                            {isPassword ?
+                                <EyeIcon className='auth-page__form-eye-icon'/>
+                                :
+                                <EyeOffIcon className='auth-page__form-eye-icon'/>
+                            }
+                        </Button>
+                    </div>
+                </div>
                 {!!inputError('password') &&
-                    <span className='auth-page__form-field-error'>{inputError('password').msg}</span>
+                    <span className='auth-page__form-error-text'>{inputError('password').msg}</span>
                 }
-                {errorMessage &&
+                {!errors &&
                     <span className='auth-page__form-error'>{errorMessage}</span>
                 }
                 <div className='auth-page__form-button'>
