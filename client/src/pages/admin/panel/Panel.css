@@ -38,9 +38,32 @@
 }
 
 .admin-page__modal {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
     height: 100%;
 }
 
-.admin-page__modal-button {
-    margin-left: 10px;
+.admin-page__modal-section {
+    height: 100%;
+    flex-direction: column;
+}
+
+.admin-page__none {
+    display: none;
+}
+
+.admin-page__file-input {
+    border: 2px solid #AAAAAA;
+    border-radius: 4px;
+    padding: 6px;
+    color: var(--blue);
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.admin-page__modal-error {
+    color: #FF0000;
+    margin-top: 10px;
 }

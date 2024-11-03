@@ -26,13 +26,13 @@ export class BrandsApi {
         }).then(response => response.data);
     }
 
-    static async updateBrand(data: IBrand): Promise<IBrand> {
+    static async updateBrand(data: IBrandInput): Promise<IBrand> {
         const formData = new FormData();
         for (const dataKey in data) {
             formData.append(dataKey, data[dataKey as keyof typeof data]);
         }
 
-        return await axios.put(this.BASE_URL, data, {
+        return await axios.put(this.BASE_URL, formData, {
             headers: this.HEADERS
         }).then(response => response.data);
     }

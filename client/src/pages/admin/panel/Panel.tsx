@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useMemo, useState} from 'react';
 import './Panel.css';
 import {useFetchBrands} from '@/store/brands/useFetchBrands';
 import {useFetchCategories} from '@/store/categories/useFetchCategories';
@@ -21,27 +21,47 @@ const Panel: FC = () => {
     const [selectedBrand, setSelectedBrand] = useState<IBrand>(null);
     const [selectedCategory, setSelectedCategory] = useState<ICategory>(null);
 
-    const {
-        createBrand,
-        updateBrand,
-        deleteBrand,
-        isLoading: isBrandMutationLoading,
-        error: brandError
-    } = useBrandsStore();
+    const {deleteBrand} = useBrandsStore();
+    const {deleteCategory} = useCategoriesStore();
 
-    const {
-        createCategory,
-        updateCategory,
-        deleteCategory,
-        isLoading: isCategoryMutationLoading,
-        error: categoryError
-    } = useCategoriesStore();
+    const [mutationName, setMutationName] = useState(null);
+    const callback = useMemo(() => {
+        const createCategory = () => {
+            setIsVisible(false);
+            fetchCategories();
+        };
 
-    const [mutationHandler, setMutationHandler] = useState(null);
+        const createBrand = () => {
+            setIsVisible(false);
+            fetchBrands();
+        };
+
+        switch (mutationName) {
+            case 'create_category': return createCategory;
+            case 'update_category': return createCategory;
+            case 'create_brand': return createBrand;
+            case 'update_brand': return createBrand;
+        }
+    }, [mutationName]);
 
     const createCategoryHandler = () => {
         setIsVisible(true);
-        setMutationHandler(createCategory);
+        setMutationName('create_category');
+    };
+
+    const updateCategoryHandler = () => {
+        setIsVisible(true);
+        setMutationName('update_category');
+    };
+
+    const createBrandHandler = () => {
+        setIsVisible(true);
+        setMutationName('create_brand');
+    };
+
+    const updateBrandHandler = () => {
+        setIsVisible(true);
+        setMutationName('update_brand');
     };
 
     const deleteBrandHandler = async () => {
@@ -75,7 +95,12 @@ const Panel: FC = () => {
                 isVisible={isVisible}
                 setIsVisible={setIsVisible}
             >
-                <AdminModel mutationHandler={mutationHandler}/>
+                <AdminModel
+                    mutationName={mutationName}
+                    callback={callback}
+                    category={selectedCategory}
+                    brand={selectedBrand}
+                />
             </Modal>
             <h1 className='font'>Admin</h1>
             <h2 className='font admin-page__text'>Brands</h2>
@@ -96,11 +121,13 @@ const Panel: FC = () => {
             <div className='admin-page__buttons'>
                 <Button
                     variant='primary'
+                    onClick={createBrandHandler}
                 >
                     Create
                 </Button>
                 <Button
                     disabled={!selectedBrand}
+                    onClick={updateBrandHandler}
                 >
                     Update
                 </Button>
@@ -135,6 +162,7 @@ const Panel: FC = () => {
                 </Button>
                 <Button
                     disabled={!selectedCategory}
+                    onClick={updateCategoryHandler}
                 >
                     Update
                 </Button>

@@ -12,7 +12,6 @@ import DislikeIcon from '@/assets/svg/ratingIcon/dislikeIcon.svg';
 import {useRatingsStore} from '@/store/useRatingsStore';
 import {price} from '@/utils/price';
 import {Link} from 'react-router-dom';
-import {RouteNames} from '@/router';
 
 const Product: FC = () => {
     const pathnameArray = location.pathname.split('/');
@@ -112,42 +111,46 @@ const Product: FC = () => {
                         >
                             Buy
                         </Button>
-                        <Button
-                            size='lg'
-                            onClick={cart ? remove : add}
-                        >
-                            {cart ?
-                                'Remove from cart'
-                                :
-                                'Add to cart'
-                            }
-                        </Button>
+                        {user &&
+                            <Button
+                                size='lg'
+                                onClick={cart ? remove : add}
+                            >
+                                {cart ?
+                                    'Remove from cart'
+                                    :
+                                    'Add to cart'
+                                }
+                            </Button>
+                        }
                         {isAdmin &&
                             <Link to={`/admin/redactor/${id}`}>
                                 <Button size='lg'>Redactor</Button>
                             </Link>
                         }
                     </div>
-                    <div className="product-page-content__buttons-group">
-                        <div
-                            className={`
+                    {user &&
+                        <div className="product-page-content__buttons-group">
+                            <div
+                                className={`
                         product-page-content__buttons-rating font ${rating?.isLike && 'blue'}
                         `}
-                            onClick={likeHandler}
-                        >
-                            <LikeIcon className='product-page-content__buttons-rating-icon'/>
-                            <p>{product?.likes}</p>
-                        </div>
-                        <div
-                            className={`
+                                onClick={likeHandler}
+                            >
+                                <LikeIcon className='product-page-content__buttons-rating-icon'/>
+                                <p>{product?.likes}</p>
+                            </div>
+                            <div
+                                className={`
                         product-page-content__buttons-rating font ${rating?.isDislike && 'blue'}
                         `}
-                            onClick={dislikeHandler}
-                        >
-                            <DislikeIcon className='product-page-content__buttons-rating-icon'/>
-                            <p>{product?.dislikes}</p>
+                                onClick={dislikeHandler}
+                            >
+                                <DislikeIcon className='product-page-content__buttons-rating-icon'/>
+                                <p>{product?.dislikes}</p>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

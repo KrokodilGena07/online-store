@@ -10,8 +10,8 @@ interface BrandsStore {
     data: IBrand | null;
     isLoading: boolean;
     error: IErrorData | null;
-    createBrand: (data: IBrandInput) => void;
-    updateBrand: (data: IBrand) => Promise<void>;
+    createBrand: (data: IBrandInput) => Promise<void>;
+    updateBrand: (data: IBrandInput) => Promise<void>;
     deleteBrand: (id: string) => Promise<void>;
 }
 
@@ -27,9 +27,10 @@ export const useBrandsStore = create<BrandsStore>()(immer(set => ({
         } catch (e) {
             const errorData = (e as AxiosError).response.data;
             set({isLoading: false, error: errorData as IErrorData});
+            throw e;
         }
     },
-    updateBrand: async (data: IBrand) => {
+    updateBrand: async (data: IBrandInput) => {
         set({isLoading: true, error: null});
         try {
             const brand = await BrandsApi.updateBrand(data);
@@ -37,6 +38,7 @@ export const useBrandsStore = create<BrandsStore>()(immer(set => ({
         } catch (e) {
             const errorData = (e as AxiosError).response.data;
             set({isLoading: false, error: errorData as IErrorData});
+            throw e;
         }
     },
     deleteBrand: async (id: string) => {

@@ -3,9 +3,9 @@ const {validationResult} = require('express-validator');
 const ApiError = require('../../error/ApiError');
 const isImage = require('../../validators/isImage');
 
-class BrandsController {
-    IMAGE_ERROR_TEXT = 'image is invalid';
+const IMAGE_ERROR_TEXT = 'image is invalid';
 
+class BrandsController {
     async get(req, res, next) {
         try {
             const data = await brandsModel.get();
@@ -25,7 +25,7 @@ class BrandsController {
                 return next(ApiError.badRequest('name is invalid', errors.array()));
             }
             if (!isImage(files?.image.name)) {
-                return next(ApiError.badRequest(this.IMAGE_ERROR_TEXT));
+                return next(ApiError.badRequest(IMAGE_ERROR_TEXT));
             }
 
             const data = await brandsModel.create(name, files.image.data);
@@ -45,7 +45,7 @@ class BrandsController {
                 return next(ApiError.badRequest('name or id is invalid', errors.array()));
             }
             if (!isImage(files?.image.name)) {
-                return next(ApiError.badRequest(this.IMAGE_ERROR_TEXT));
+                return next(ApiError.badRequest(IMAGE_ERROR_TEXT));
             }
 
             const data = await brandsModel.update(name, files.image.data, id);

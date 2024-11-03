@@ -25,7 +25,7 @@ class CategoriesModel {
         const category = await findById(id, Category, this.NOT_FOUND_TEXT);
 
         const candidate = await Category.findOne({where: {name}});
-        if (candidate) {
+        if (candidate && candidate.id !== category.id) {
             throw ApiError.badRequest(this.NAME_ERROR_TEXT);
         }
 

@@ -28,7 +28,7 @@ class BrandsModel {
         const brand = await findById(id, Brand, this.NOT_FOUND_TEXT);
 
         const candidate = await Brand.findOne({where: {name}});
-        if (candidate) {
+        if (candidate && candidate.id !== brand.id) {
             throw ApiError.badRequest(this.NAME_ERROR_TEXT);
         }
 

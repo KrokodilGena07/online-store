@@ -19,13 +19,14 @@ export const useCategoriesStore = create<CategoriesStore>()(immer(set => ({
     isLoading: false,
     error: null,
     createCategory: async (name: string) => {
-        set({isLoading: true});
+        set({isLoading: true, error: null});
         try {
             const data = await CategoriesApi.createCategory(name);
             set({isLoading: false, data});
         } catch (e) {
             const errorData = (e as AxiosError).response.data;
             set({isLoading: false, error: errorData as IErrorData});
+            throw e;
         }
     },
     updateCategory: async (data: ICategory) => {
@@ -36,6 +37,7 @@ export const useCategoriesStore = create<CategoriesStore>()(immer(set => ({
         } catch (e) {
             const errorData = (e as AxiosError).response.data;
             set({isLoading: false, error: errorData as IErrorData});
+            throw e;
         }
     },
     deleteCategory: async (id: string) => {

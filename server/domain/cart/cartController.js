@@ -2,9 +2,9 @@ const cartModel = require('./cartModel');
 const {validationResult} = require('express-validator');
 const ApiError = require('../../error/ApiError');
 
-class CartController {
-    ID_ERROR_TEXT = 'userId or productId is empty';
+const ID_ERROR_TEXT = 'userId or productId is empty';
 
+class CartController {
     async getList(req, res, next) {
         try {
             const {userId} = req.params;
@@ -19,7 +19,7 @@ class CartController {
         try {
             const {userId, productId} = req.query;
             if (!userId || !productId) {
-                return next(ApiError.badRequest(this.ID_ERROR_TEXT));
+                return next(ApiError.badRequest(ID_ERROR_TEXT));
             }
 
             const data = await cartModel.getOne(userId, productId);
@@ -35,7 +35,7 @@ class CartController {
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) {
-                return next(ApiError.badRequest(this.ID_ERROR_TEXT, errors.array()));
+                return next(ApiError.badRequest(ID_ERROR_TEXT, errors.array()));
             }
 
             const data = await cartModel.create(userId, productId);
