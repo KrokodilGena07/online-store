@@ -28,6 +28,7 @@ export const useInfosStore = create<InfosStore>()(immer(set => ({
         } catch (e) {
             const errorData = (e as AxiosError).response.data;
             set({isLoading: false, error: errorData as IErrorData});
+            throw e;
         }
     },
     updateInfo: async (data) => {
@@ -38,6 +39,7 @@ export const useInfosStore = create<InfosStore>()(immer(set => ({
         } catch (e) {
             const errorData = (e as AxiosError).response.data;
             set({isLoading: false, error: errorData as IErrorData});
+            throw e;
         }
     },
     deleteInfo: async (id: string) => {

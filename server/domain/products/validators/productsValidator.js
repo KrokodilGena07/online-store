@@ -1,16 +1,16 @@
 const {body} = require('express-validator');
 
 const productsValidator = [
-    body('name', 'name is invalid').notEmpty(),
-    body('description', 'description is invalid').notEmpty(),
+    body('name', 'name is invalid').isLength({min: 1, max: 255}),
+    body('description', 'description is invalid').isLength({min: 1, max: 500}),
     body('price', 'price is invalid').isNumeric(),
-    body('brandId', 'brandId is invalid').notEmpty(),
-    body('categoryId', 'categoryId is invalid').notEmpty()
+    body('brandId', 'brand is empty').isUUID(),
+    body('categoryId', 'category is empty').isUUID()
 ];
 
 const updateProductsValidator = [
     ...productsValidator,
-    body('id', 'id is invalid').notEmpty()
+    body('id', 'id is invalid').isUUID()
 ];
 
 module.exports = {

@@ -14,12 +14,18 @@ import {useNavBack} from '@/hooks/useNavBack';
 import {convertBase64ToFile} from '@/utils/convertBase64ToFile';
 import {IErrorData} from '@/models/error/IErrorData';
 import {IProductInput} from '@/models/product/IProductInput';
+import {AxiosError} from 'axios';
+import {IError} from '@/models/error/IError';
+import {useFindInputError} from '@/hooks/useFindInputError';
+import {useNavigate} from 'react-router-dom';
+import {RouteNames} from '@/router';
 
 const Redactor: FC = () => {
     const locationArray = location.pathname.split('/');
     const id = locationArray[locationArray.length - 1];
 
     const navBack = useNavBack();
+    const navigate = useNavigate();
 
     const {data: product, isLoading: isProductLoading} = useFetchProduct();
     const fetchProduct = useFetchProduct(state => state.fetchProduct);
@@ -27,43 +33,55 @@ const Redactor: FC = () => {
     const {data: brands, isLoading: isBrandsLoading} = useFetchBrands();
     const fetchBrands = useFetchBrands(state => state.fetchBrands);
 
-    const [errorData, setErrorData] = useState<IErrorData>(null);
+    const [errors, setErrors] = useState<IError[]>(null);
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    const inputError = useFindInputError(errors);
+
+    const newProductHandler = (value: string, field: string) => {
+        if (errors) {
+            setErrors(errors.filter(error => error.path !== field));
+        }
+        setNewProduct({...newProduct, [field]: value});
+    };
 
     const {
         createProduct,
         updateProduct,
         deleteProduct,
-        error,
         isLoading: isProductMutationLoading
     } = useProductsStore();
 
+    const setError = (err: any) => {
+        const errorData = (err as AxiosError<IErrorData>).response.data;
+        if (errorData.errors) {
+            setErrors(errorData.errors);
+        }
+        setErrorMessage(errorData.message);
+    }
+
     const createProductHandler = async () => {
+        setErrors(null);
+        setErrorMessage(null);
         await createProduct({
-            ...newProduct,
-            brandId,
-            categoryId,
-            image
-        }).then(() => {
-            if (!error) {
+            ...newProduct, brandId, categoryId, image})
+            .then(() => {
                 navBack();
-            }
-            setErrorData(error);
-        })
+            })
+            .catch(err => setError(err));
     };
 
     const updateProductHandler = async () => {
-        await updateProduct({
-            ...product,
-            brandId,
-            categoryId,
-            image,
-            price: String(product.price)
-        }).then(() => fetchProduct(id));
+        setErrors(null);
+        setErrorMessage(null);
+        await updateProduct({...newProduct, brandId, categoryId, image})
+            .then(() => fetchProduct(id))
+            .catch(err => setError(err));
     };
 
     const deleteProductHandler = async () => {
         deleteProduct(id);
-        navBack();
+        navigate(RouteNames.PROFILE);
     };
 
     const {data: categories, isLoading: isCategoriesLoading} = useFetchCategories();
@@ -97,7 +115,7 @@ const Redactor: FC = () => {
         }
         if (!product && !isProductLoading) {
             setNewProduct({
-                name: '', price: ''
+                name: '', price: '', description: ''
             } as IProductInput);
         }
     }, [product]);
@@ -108,70 +126,81 @@ const Redactor: FC = () => {
         return <Loader/>;
     }
 
-    console.log(newProduct);
-
     return (
         <div className='page redactor-page'>
-            <h2 className='font redactor-page-margin'>Product body</h2>
+            <h2 className='font'>Product body</h2>
             <FormInput
                 value={newProduct?.name}
                 id='name'
-                onChange={v => setNewProduct({...newProduct, name: v})}
+                onChange={v => newProductHandler(v, 'name')}
                 label='Name'
+                className='redactor-page__product-label'
+                isInvalid={!!inputError('name')}
+                error={inputError('name')}
             />
             <label
                 htmlFor='description'
-                className='font redactor-page__label'
+                className='font redactor-page__label redactor-page__product-label'
             >
                 Description
             </label>
             <textarea
                 id='description'
-                className='input redactor-page__textarea'
+                className={`input ${inputError('description') && 'input_invalid'} redactor-page__textarea`}
                 wrap='hard'
                 cols={60}
                 rows={10}
                 value={newProduct?.description}
-                onChange={v => setNewProduct({
-                    ...newProduct, description: v.target.value}
-                )}
+                onChange={v => newProductHandler(v.target.value, 'description')}
             />
+            {inputError('description') &&
+                <div className='input-error-text font'>{inputError('description').msg}</div>
+            }
             <FormInput
                 value={newProduct?.price}
                 id='price'
-                onChange={v => setNewProduct({...newProduct, price: v})}
+                onChange={v => newProductHandler(v, 'price')}
                 label='Price'
+                className='redactor-page__product-label'
+                isInvalid={!!inputError('price')}
+                error={inputError('price')}
             />
-            <p className='redactor-page__label font'>Brands</p>
+            <p className='redactor-page__label redactor-page__product-label font'>Brands</p>
             <Dropdown
                 value={brandId}
                 onChange={setBrandId}
                 options={brands?.map(item => ({title: item.name, value: item.id}))}
                 variant='primary'
-                className='redactor-page__input'
+                defaultValue='select brand'
             />
-            <p className='redactor-page__label font'>Categories</p>
+            {inputError('brandId') &&
+                <div className='input-error-text font'>{inputError('brandId')?.msg}</div>
+            }
+            <p className='redactor-page__label font redactor-page__product-label'>Categories</p>
             <Dropdown
                 value={categoryId}
                 onChange={setCategoryId}
                 options={categories?.map(item => ({title: item.name, value: item.id}))}
                 variant='default'
-                className='redactor-page__input'
+                defaultValue='select category'
             />
+            {inputError('categoryId') &&
+                <div className='input-error-text font'>{inputError('categoryId')?.msg}</div>
+            }
             <input
                 type="file"
                 id='file'
                 className='redactor-page__none'
                 onChange={v => setImage(v.target.files[0])}
             />
-            <p className='redactor-page__label font'>Image</p>
+            <p className='redactor-page__label font redactor-page__product-label'>Image</p>
             <label htmlFor='file'>
                 <div className='redactor-page__file-input font'>
                     {image?.name || 'select file'}
                 </div>
             </label>
-            {!errorData?.errors.length && errorData?.message &&
-                <p>123</p>
+            {(!errors && errorMessage) &&
+                <p className='font redactor-page__error'>{errorMessage}</p>
             }
             {!product &&
                 <Button
@@ -190,7 +219,6 @@ const Redactor: FC = () => {
                 <div className='redactor-page__buttons'>
                     <Button
                         variant='primary'
-                        className='redactor-page__save-product-button'
                         onClick={updateProductHandler}
                     >
                         {isProductMutationLoading ?
@@ -200,7 +228,6 @@ const Redactor: FC = () => {
                         }
                     </Button>
                     <Button
-                        className='redactor-page__save-product-button'
                         onClick={deleteProductHandler}
                     >
                         {isProductMutationLoading ?

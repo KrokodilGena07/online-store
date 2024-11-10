@@ -1,9 +1,10 @@
 .redactor-page {
     padding-bottom: 10px;
+    min-height: calc(100vh - var(--mobile-header-height) - var(--header-margin));
 }
 
 .redactor-page-margin {
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 .redactor-page__label {
@@ -12,18 +13,19 @@
     font-weight: 500;
 }
 
-.redactor-page__input {
-    margin-bottom: 15px;
+.redactor-page__body-label {
+    margin-top: 15px;
 }
 
 .redactor-page__save-button {
     display: block;
+    margin-top: 15px;
 }
 
 .redactor-page__buttons {
     display: flex;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .redactor-page__info {
@@ -47,13 +49,26 @@
 }
 
 .redactor-page__save-product-button {
-    margin: 10px 0;
+    margin-top: 10px;
+}
+
+.redactor-page__product-label {
+    margin-top: 10px;
 }
 
 .redactor-page__textarea {
     padding: 8px;
     max-width: calc(80vw - 17px);
     max-height: 500px;
+    min-width: 250px;
+    min-height: 75px;
+    font-size: medium;
+}
+
+.redactor-page__error {
+    color: #FF0000;
+    font-size: large;
+    margin-top: 10px;
 }
 
 @media screen and (width < 1000px) {

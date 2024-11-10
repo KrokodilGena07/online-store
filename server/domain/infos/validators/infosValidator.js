@@ -7,12 +7,12 @@ const baseInfoValidator = [
 
 const infosValidator = [
     ...baseInfoValidator,
-    body('productId', 'productId is invalid').isLength({min: 1, max: 255})
+    body('productId', 'productId is invalid').isUUID()
 ];
 
 const updateInfosValidator = [
     ...baseInfoValidator,
-    body('id', 'id is invalid').isLength({min: 1, max: 255})
+    body('id', 'id is invalid').isUUID()
 ];
 
 module.exports = {

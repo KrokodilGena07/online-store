@@ -27,6 +27,7 @@ export const useProductsStore = create<ProductsStore>()(immer(set => ({
         } catch (e) {
             const errorData = (e as AxiosError).response.data;
             set({isLoading: false, error: errorData as IErrorData});
+            throw e;
         }
     },
     updateProduct: async (data: IProductInput) => {
@@ -37,6 +38,7 @@ export const useProductsStore = create<ProductsStore>()(immer(set => ({
         } catch (e) {
             const errorData = (e as AxiosError).response.data;
             set({isLoading: false, error: errorData as IErrorData});
+            throw e;
         }
     },
     deleteProduct: async (id: string) => {

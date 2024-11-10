@@ -5,7 +5,7 @@ const nameValidator = body('name', 'name is invalid')
 
 const nameUpdateValidator = [
     nameValidator,
-    body('id', 'id is invalid').isLength({min: 1, max: 255})
+    body('id', 'id is invalid').isUUID()
 ];
 
 module.exports = {

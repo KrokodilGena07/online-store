@@ -35,3 +35,30 @@
     outline: #AAAAAA 1px solid;
     cursor: not-allowed;
 }
+
+.input_invalid,
+.input_invalid:hover {
+    background-color: #ffe7e7;
+    color: #FF0000;
+}
+
+.input_invalid:focus {
+    background-color: #FFFFFF;
+    outline-color: #FF0000;
+}
+
+.input-error-text {
+    margin-top: 2px;
+    color: #FF0000;
+}
+
+.input-password-container {
+    display: flex;
+    gap: 10px;
+}
+
+.input-password-eye-icon {
+    color: #000000;
+    width: 28px;
+    height: 28px;
+}

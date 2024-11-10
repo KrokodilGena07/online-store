@@ -10,8 +10,7 @@ import {useUserStore} from '@/store/useUserStore';
 import {AxiosError} from 'axios';
 import {IErrorData} from '@/models/error/IErrorData';
 import {useAuthStore} from '@/store/auth/useAuthStore';
-import EyeIcon from '@/assets/svg/eyeIcons/eyeIcon.svg';
-import EyeOffIcon from '@/assets/svg/eyeIcons/eyeOffIcon.svg';
+import {useFindInputError} from '@/hooks/useFindInputError';
 
 const Auth: FC = () => {
     const [newUser, setNewUser] = useState<IUserInput>({
@@ -19,7 +18,6 @@ const Auth: FC = () => {
     });
     const [errors, setErrors] = useState<IError[] | null>(null);
     const [errorMessage, setErrorMessage] = useState(null);
-    const [isPassword, setIsPassword] = useState(true);
 
     const {
         registration,
@@ -33,9 +31,7 @@ const Auth: FC = () => {
     const isLogin = location.pathname === RouteNames.AUTH_LOGIN;
     const authorize = isLogin ? login : registration;
 
-    const inputError = (fieldName: string): IError | undefined => {
-        return errors?.find(error => error.path === fieldName);
-    };
+    const inputError = useFindInputError(errors);
 
     const newUserHandler = (value: string, field: string) => {
         if (errors) {
@@ -94,11 +90,9 @@ const Auth: FC = () => {
                             onChange={v => newUserHandler(v, 'username')}
                             id='username'
                             size='lg'
-                            className={inputError('username') && 'auth-page__form-input_wrong'}
+                            isInvalid={!!inputError('username')}
+                            error={inputError('username')}
                         />
-                        {!!inputError('username') &&
-                            <span className='auth-page__form-error-text'>{inputError('username').msg}</span>
-                        }
                     </>
                 }
                 <label
@@ -113,43 +107,25 @@ const Auth: FC = () => {
                     onChange={v => newUserHandler(v, 'email')}
                     id='email'
                     size='lg'
-                    className={inputError('email') && 'auth-page__form-input_wrong'}
+                    isInvalid={!!inputError('email')}
+                    error={inputError('email')}
                 />
-                {!!inputError('email') &&
-                    <span className='auth-page__form-error-text'>{inputError('email').msg}</span>
-                }
                 <label
                     htmlFor="password"
                     className='auth-page__form-label'
                 >
                     Password
                 </label>
-                <div className='auth-page__form-password'>
-                    <Input
-                        value={newUser.password}
-                        type={isPassword ? 'password' : 'text'}
-                        onChange={v => newUserHandler(v, 'password')}
-                        id='password'
-                        size='lg'
-                        className={(inputError('password') && 'auth-page__form-input_wrong') + ' auth-page__form-password-input'}
-                    />
-                    <div>
-                        <Button
-                            variant='icon'
-                            onClick={() => setIsPassword(!isPassword)}
-                            type='button'
-                        >
-                            {isPassword ?
-                                <EyeIcon className='auth-page__form-eye-icon'/>
-                                :
-                                <EyeOffIcon className='auth-page__form-eye-icon'/>
-                            }
-                        </Button>
-                    </div>
-                </div>
-                {!!inputError('password') &&
-                    <span className='auth-page__form-error-text'>{inputError('password').msg}</span>
-                }
+                <Input
+                    value={newUser.password}
+                    type='password'
+                    onChange={v => newUserHandler(v, 'password')}
+                    id='password'
+                    size='lg'
+                    isInvalid={!!inputError('password')}
+                    error={inputError('password')}
+                    className='auth-page__form-password-input'
+                />
                 {!errors &&
                     <span className='auth-page__form-error'>{errorMessage}</span>
                 }

@@ -12,6 +12,8 @@ const Profile: FC = () => {
 
     const navigate = useNavigate();
 
+    const isAdmin = user?.role === 'ADMIN';
+
     const signOut = () => {
         logout();
         removeUser();
@@ -40,13 +42,25 @@ const Profile: FC = () => {
                         Cart
                     </Button>
                 </Link>
-                <Link to={RouteNames.ADMIN_PANEL}>
-                    <Button
-                        size='lg'
-                    >
-                        Admin
-                    </Button>
-                </Link>
+                {isAdmin &&
+                    <>
+                        <Link to='/admin/redactor/new'>
+                            <Button
+                                size='lg'
+                                variant='primary'
+                            >
+                                Create new product
+                            </Button>
+                        </Link>
+                        <Link to={RouteNames.ADMIN_PANEL}>
+                            <Button
+                                size='lg'
+                            >
+                                Admin
+                            </Button>
+                        </Link>
+                    </>
+                }
                 <Button
                     size='lg'
                     onClick={signOut}
