@@ -6,14 +6,13 @@ import {useNavBack} from '@/hooks/useNavBack';
 
 const Error: FC = () => {
     const navBack = useNavBack();
-
     return (
         <div className='error-page center-container'>
-            <div className='error-page__content'>
+            <div className='error-page__body'>
                 <ErrorIcon
-                    className='error-page__content-icon'
+                    className='error-page__icon'
                 />
-                <h1 className='font error-page__content-text'>
+                <h1 className='error-page__text'>
                     Page not found
                 </h1>
             </div>

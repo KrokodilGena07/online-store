@@ -41,10 +41,6 @@
     top: calc(var(--desktop-header-height) + var(--header-margin));
 }
 
-.font {
-    font-family: Montserrat, system-ui;
-}
-
 @media screen and (width < 1000px) {
     .page {
         padding: 0 8px;
@@ -58,4 +54,19 @@
 
 .button_black:hover {
     background-color: var(--light-dark) !important;
+}
+
+.input__none {
+    display: none;
+}
+
+.file-input {
+    border: 2px solid #AAAAAA;
+    border-radius: 4px;
+    padding: 6px;
+    color: var(--blue);
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+    font-family: Montserrat, system-ui;
 }

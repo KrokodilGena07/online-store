@@ -1,6 +1,7 @@
 .redactor-page {
     padding-bottom: 10px;
     min-height: calc(100vh - var(--mobile-header-height) - var(--header-margin));
+    font-family: Montserrat, system-ui;
 }
 
 .redactor-page-margin {
@@ -11,6 +12,7 @@
     display: block;
     margin-bottom: 5px;
     font-weight: 500;
+    font-family: Montserrat, system-ui;
 }
 
 .redactor-page__body-label {
@@ -40,12 +42,7 @@
 }
 
 .redactor-page__file-input {
-    border: 2px solid #AAAAAA;
-    border-radius: 4px;
-    padding: 6px;
-    color: var(--blue);
     width: fit-content;
-    cursor: pointer;
 }
 
 .redactor-page__save-product-button {

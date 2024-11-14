@@ -20,10 +20,10 @@ const Home: FC = () => {
     const isLoading = isBrandsLoading || isProductsLoading;
     const popularProductsQuery: IProductQuery = {limit: 5, sort: 'rate_up'};
 
-    const nav = (brandId: string) => {
-        navigate(RouteNames.SHOP + `?brandId=${brandId}`)
+    const navigateToShop = (brandId: string) => {
+        navigate(RouteNames.SHOP + `?brandId=${brandId}`);
     };
-    const refetch = () => location.reload()
+    const refetch = () => location.reload();
 
     useEffect(() => {
         fetchBrands();
@@ -47,34 +47,37 @@ const Home: FC = () => {
     return (
         <div className='page'>
             {brands?.length &&
-                <div className='home-page__brands'>
-                    <h2 className='font home-page__text home-page__brands-text'>Brands</h2>
-                    <div className='home-page__brands-list'>
+                <>
+                    <h2 className='home-page__text home-page__brands-text'>Brands</h2>
+                    <div className='home-page__brands'>
                         {brands.map(brand =>
                             <div
                                 key={brand.id}
-                                className='home-page__brands-list-item'
-                                onClick={() => nav(brand.id)}
+                                className='home-page__brands-item'
+                                onClick={() => navigateToShop(brand.id)}
                             >
                                 <img
                                     src={brand.image}
                                     alt={brand.name}
-                                    className='home-page__brands-list-item-image'
+                                    className='home-page__brands-image'
                                 />
                             </div>
                         )}
                     </div>
-                </div>
+                </>
             }
             {products?.count &&
-                <div className="home-page__products">
-                    <h2 className='font home-page__text home-page__products-text'>Popular products</h2>
-                    <div className='home-page__products-list'>
+                <>
+                    <h2 className='home-page__text home-page__products-text'>Popular products</h2>
+                    <div className='home-page__products'>
                         {products.data.map(product =>
-                            <ProductItem product={product} key={product.id}/>
+                            <ProductItem
+                                product={product}
+                                key={product.id}
+                            />
                         )}
                     </div>
-                </div>
+                </>
             }
         </div>
     );

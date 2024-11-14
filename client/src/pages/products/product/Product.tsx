@@ -18,8 +18,8 @@ const Product: FC = () => {
     const id = pathnameArray[pathnameArray.length - 1];
 
     const {user} = useUserStore();
-
     const isAdmin = user?.role === 'ADMIN';
+    const idData = {userId: user?.id, productId: id};
 
     const {data: product, isLoading: isProductLoading, error} = useFetchProduct();
     const fetchProduct = useFetchProduct(state => state.fetchProduct);
@@ -42,13 +42,10 @@ const Product: FC = () => {
         await dislike(idData).then(() => ratingHandler());
     };
 
-    const idData = {userId: user?.id, productId: id};
     const updateCartFlag = () => fetchCartItem(idData);
-
     const add = () => {
         incrementCountOrAdd(idData).then(updateCartFlag);
     }
-
     const remove = () => {
         removeCartItem(cart?.id).then(updateCartFlag);
     }
@@ -71,30 +68,28 @@ const Product: FC = () => {
 
     return (
         <div className='page product-page'>
-            <div className='product-page-content'>
-                <div className='product-page-content-data'>
-                    <div className='product-page-content__image-container'>
+            <div className='product-page__body'>
+                <div className='product-page__main'>
+                    <div className='product-page__image-container'>
                         <img
                             src={product?.image}
                             alt={product?.name}
-                            className='product-page-content__image'
+                            className='product-page__image'
                         />
                     </div>
                     <div>
-                        <h1 className='font'>{product?.name}</h1>
-                        <p className='font product-page-content-data__description'>
+                        <h1>{product?.name}</h1>
+                        <p className='product-page__description'>
                             {product?.description}
                         </p>
-                        <h2 className='font'>
-                            Price: <span>{price(product?.price)}</span>
-                        </h2>
-                        <div className='product-page-content-data__infos'>
+                        <h2>Price: <span>{price(product?.price)}</span></h2>
+                        <div className='product-page__infos'>
                             {product?.infos.map(info =>
                                 <div
                                     key={info.id}
-                                    className='product-page-content-data__infos-item font'
+                                    className='product-page__infos-item'
                                 >
-                                    <span className='product-page-content-data__infos-item-title'>
+                                    <span className='product-page__infos-item-title'>
                                         {info.title}
                                     </span>
                                     <span>: {info.body}</span>
@@ -103,8 +98,8 @@ const Product: FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className='product-page-content__buttons product-page-content__buttons-group'>
-                    <div className="product-page-content__buttons-group">
+                <div className='product-page__buttons product-page__buttons-container'>
+                    <div className="product-page__buttons-container">
                         <Button
                             variant='primary'
                             size='lg'
@@ -130,23 +125,19 @@ const Product: FC = () => {
                         }
                     </div>
                     {user &&
-                        <div className="product-page-content__buttons-group">
+                        <div className="product-page__buttons-container">
                             <div
-                                className={`
-                        product-page-content__buttons-rating font ${rating?.isLike && 'blue'}
-                        `}
+                                className={`product-page__rating-button ${rating?.isLike && 'blue'}`}
                                 onClick={likeHandler}
                             >
-                                <LikeIcon className='product-page-content__buttons-rating-icon'/>
+                                <LikeIcon className='product-page__rating-icon'/>
                                 <p>{product?.likes}</p>
                             </div>
                             <div
-                                className={`
-                        product-page-content__buttons-rating font ${rating?.isDislike && 'blue'}
-                        `}
+                                className={`product-page__rating-button ${rating?.isDislike && 'blue'}`}
                                 onClick={dislikeHandler}
                             >
-                                <DislikeIcon className='product-page-content__buttons-rating-icon'/>
+                                <DislikeIcon className='product-page__rating-icon'/>
                                 <p>{product?.dislikes}</p>
                             </div>
                         </div>

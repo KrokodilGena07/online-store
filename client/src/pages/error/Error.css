@@ -2,18 +2,19 @@
     flex-direction: column;
 }
 
-.error-page__content {
+.error-page__body {
     display: flex;
     gap: 20px;
 }
 
-.error-page__content-icon {
+.error-page__icon {
     width: 130px;
     height: 130px;
 }
 
-.error-page__content-text {
+.error-page__text {
     font-size: xxx-large;
+    font-family: Montserrat, system-ui;
 }
 
 .error-page__button {
@@ -21,14 +22,14 @@
 }
 
 @media screen and (max-width: 600px) {
-    .error-page__content {
+    .error-page__body {
         flex-direction: column;
         align-items: center;
     }
 }
 
 @media screen and (max-width: 400px) {
-    .error-page__content-text {
+    .error-page__text {
         font-size: xx-large;
     }
 }

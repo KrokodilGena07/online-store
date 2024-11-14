@@ -1,11 +1,14 @@
 .product-item {
+    font-family: Montserrat, system-ui;
+    font-weight: 400;
+
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    padding: 8px;
+
     border-radius: 4px;
     outline: 2px solid #DDDDDD;
-    font-weight: 400;
+    padding: 8px;
 }
 
 .product-item__image-container {

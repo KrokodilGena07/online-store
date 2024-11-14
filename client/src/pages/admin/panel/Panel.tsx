@@ -44,37 +44,36 @@ const Panel: FC = () => {
         }
     }, [mutationName]);
 
-    const createCategoryHandler = () => {
-        setIsVisible(true);
-        setMutationName('create_category');
+    const itemHandler = (mutationName: string, callback?: () => void) => {
+        return () => {
+            setIsVisible(true);
+            setMutationName(mutationName);
+            if (callback) {
+                callback();
+            }
+        };
     };
 
-    const updateCategoryHandler = () => {
-        setIsVisible(true);
-        setMutationName('update_category');
+    const createCategoryHandler = itemHandler('create_category', () => setSelectedCategory(null));
+    const updateCategoryHandler = itemHandler('update_category');
+    const createBrandHandler = itemHandler('create_brand', () => setSelectedBrand(null));
+    const updateBrandHandler = itemHandler('update_brand');
+
+    const deleteHandler = (
+        remove: (id: string) => Promise<void>,
+        set: (v: any) => void,
+        fetch: () => void,
+        id: string
+    ) => {
+        return async () => {
+            await remove(id)
+                .then(() => fetch())
+                .then(() => set(null))
+        };
     };
 
-    const createBrandHandler = () => {
-        setIsVisible(true);
-        setMutationName('create_brand');
-    };
-
-    const updateBrandHandler = () => {
-        setIsVisible(true);
-        setMutationName('update_brand');
-    };
-
-    const deleteBrandHandler = async () => {
-        await deleteBrand(selectedBrand.id)
-            .then(() => fetchBrands())
-            .then(() => setSelectedBrand(null));
-    };
-
-    const deleteCategoryHandler = async () => {
-        await deleteCategory(selectedCategory.id)
-            .then(() => fetchCategories())
-            .then(() => setSelectedCategory(null));
-    };
+    const deleteBrandHandler = deleteHandler(deleteBrand, setSelectedBrand, fetchBrands, selectedBrand?.id);
+    const deleteCategoryHandler = deleteHandler(deleteCategory, setSelectedCategory, fetchCategories, selectedCategory?.id);
 
     useEffect(() => {
         fetchCategories();
@@ -90,7 +89,7 @@ const Panel: FC = () => {
     }
 
     return (
-        <div className='page'>
+        <div className='page admin-page'>
             <Modal
                 isVisible={isVisible}
                 setIsVisible={setIsVisible}
@@ -100,15 +99,17 @@ const Panel: FC = () => {
                     callback={callback}
                     category={selectedCategory}
                     brand={selectedBrand}
+                    setSelectedBrand={setSelectedBrand}
+                    setSelectedCategory={setSelectedCategory}
                 />
             </Modal>
-            <h1 className='font'>Admin</h1>
-            <h2 className='font admin-page__text'>Brands</h2>
+            <h1>Admin</h1>
+            <h2 className='admin-page__text'>Brands</h2>
             <div className='admin-page__items'>
                 {brands?.map(brand =>
                     <div
                         key={brand.id}
-                        className={`font admin-page__item ${selectedBrand?.id === brand.id && 'admin-page__item_selected'}`}
+                        className={`admin-page__item ${selectedBrand?.id === brand.id && 'admin-page__item_selected'}`}
                         onClick={() => setSelectedBrand(brand)}
                     >
                         {brand.name}
@@ -116,7 +117,7 @@ const Panel: FC = () => {
                 )}
             </div>
             {!brands?.length &&
-                <p className='font admin-page__no-items-text'>Create new brand</p>
+                <p className='admin-page__no-items-text'>Create new brand</p>
             }
             <div className='admin-page__buttons'>
                 <Button
@@ -138,12 +139,12 @@ const Panel: FC = () => {
                     Delete
                 </Button>
             </div>
-            <h2 className='font admin-page__text'>Categories</h2>
+            <h2 className='admin-page__text'>Categories</h2>
             <div className='admin-page__items'>
                 {categories?.map(category =>
                     <div
                         key={category.id}
-                        className={`font admin-page__item ${selectedCategory?.id === category.id && 'admin-page__item_selected'}`}
+                        className={`admin-page__item ${selectedCategory?.id === category.id && 'admin-page__item_selected'}`}
                         onClick={() => setSelectedCategory(category)}
                     >
                         {category.name}
@@ -151,7 +152,7 @@ const Panel: FC = () => {
                 )}
             </div>
             {!categories?.length &&
-                <p className='font admin-page__no-items-text'>Create new category</p>
+                <p className='admin-page__no-items-text'>Create new category</p>
             }
             <div className='admin-page__buttons'>
                 <Button

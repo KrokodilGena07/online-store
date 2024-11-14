@@ -11,10 +11,9 @@ interface BadRequestErrorProps {
 
 const BadRequestError: FC<BadRequestErrorProps> = ({text, callback, buttonText}) => {
     const navBack = useNavBack();
-
     return (
         <div className='bad-request-error center-container'>
-            <h1 className='bad-request-error__text font'>{text}</h1>
+            <h1 className='bad-request-error__text'>{text}</h1>
             <Button
                 onClick={callback || navBack}
                 size='lg'

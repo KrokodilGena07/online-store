@@ -50,6 +50,7 @@
 .input-error-text {
     margin-top: 2px;
     color: #FF0000;
+    font-family: Montserrat, system-ui;
 }
 
 .input-password-container {

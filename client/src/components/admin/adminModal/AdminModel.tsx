@@ -14,9 +14,11 @@ interface AdminModelProps {
     category?: ICategory;
     brand?: IBrand;
     callback: () => void;
+    setSelectedBrand: (v: IBrand) => void;
+    setSelectedCategory: (v: ICategory) => void;
 }
 
-const AdminModel: FC<AdminModelProps> = ({mutationName, category, brand, callback}) => {
+const AdminModel: FC<AdminModelProps> = props => {
     const [name, setName] = useState('');
     const [image, setImage] = useState<File>(null);
     const [error, setError] = useState(null);
@@ -34,72 +36,68 @@ const AdminModel: FC<AdminModelProps> = ({mutationName, category, brand, callbac
         isLoading: isBrandLoading,
     } = useBrandsStore();
 
-    const caughtError = (error: any) => {
-        const errorData = (error as AxiosError<IErrorData>).response.data;
-        setError(errorData.message);
+    const doMutation = (mutation: (data: any) => Promise<void>, data: any) => {
+        return async () => {
+            await mutation(data)
+                .then(props.callback)
+                .catch(err => {
+                    const errorData = (err as AxiosError<IErrorData>).response.data;
+                    setError(errorData.message);
+                });
+        };
     };
 
-    switch (mutationName) {
+    switch (props.mutationName) {
         case 'create_category':
-            mutation = async () => {
-                await createCategory(name)
-                    .then(callback)
-                    .catch(err => caughtError(err));
-            };
+            mutation = doMutation(createCategory, name)
             break;
         case 'update_category':
-            mutation = async () => {
-                await updateCategory({...category, name})
-                    .then(callback)
-                    .catch(err => caughtError(err));
-            };
+            mutation = doMutation(updateCategory, {...props.category, name});
             break;
         case 'create_brand':
-            mutation = async () => {
-                await createBrand({name, image})
-                    .then(callback)
-                    .catch(err => caughtError(err));
-            };
+            mutation = doMutation(createBrand, {name, image});
             break;
         case 'update_brand':
-            mutation = async () => {
-                await updateBrand({...brand, image, name})
-                    .then(callback)
-                    .catch(err => caughtError(err));
-            };
+            mutation = doMutation(updateBrand, {...props.brand, image, name});
             break;
     }
+
+    const isBrandMutation =
+        props.mutationName === 'create_brand' ||
+        props.mutationName === 'update_brand';
+
+    const isNewItem =
+        props.mutationName === 'create_brand' ||
+        props.mutationName === 'create_category';
 
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
         setError(null);
         e.preventDefault();
-        await mutation();
+        await mutation().then(() => {
+            if (isBrandMutation) {
+                props.setSelectedBrand(null);
+            } else {
+                props.setSelectedCategory(null);
+            }
+        })
     };
-
-    const isBrandMutation =
-        mutationName === 'create_brand' ||
-        mutationName === 'update_brand';
-
-    const isNewItem =
-        mutationName === 'create_brand' ||
-        mutationName === 'create_category';
 
     const isLoading = isCategoryLoading || isBrandLoading;
     const buttonText = isNewItem ? 'Create' : 'Save';
 
     useEffect(() => {
         if (!isNewItem) {
-            if (category) {
-                setName(category.name);
+            if (props.category) {
+                setName(props.category.name);
                 return;
             }
-            if (brand) {
-                setName(brand.name);
-                const image = convertBase64ToFile(brand.image, 'brand.png');
+            if (props.brand) {
+                setName(props.brand.name);
+                const image = convertBase64ToFile(props.brand.image, 'brand.png');
                 setImage(image);
             }
         }
-    }, [category]);
+    }, [props.category, props.brand]);
 
     return (
         <form
@@ -118,18 +116,18 @@ const AdminModel: FC<AdminModelProps> = ({mutationName, category, brand, callbac
                         <input
                             type="file"
                             id='file'
-                            className='admin-page__none'
+                            className='input__none'
                             onChange={v => setImage(v.target.files[0])}
                         />
                         <label htmlFor='file'>
-                            <div className='admin-page__file-input font'>
+                            <div className='file-input'>
                                 {image?.name || 'select file'}
                             </div>
                         </label>
                     </>
                 }
                 {error &&
-                    <p className='font admin-page__modal-error'>{error}</p>
+                    <p className='admin-page__modal-error'>{error}</p>
                 }
             </div>
             <div>

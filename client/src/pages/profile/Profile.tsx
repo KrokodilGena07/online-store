@@ -11,7 +11,6 @@ const Profile: FC = () => {
     const {logout, isLoading} = useAuthStore();
 
     const navigate = useNavigate();
-
     const isAdmin = user?.role === 'ADMIN';
 
     const signOut = () => {
@@ -28,7 +27,7 @@ const Profile: FC = () => {
                         <p>Activate your email, please!</p>
                     </div>
                 }
-                <h1 className='profile-page__username'>{user.username}</h1>
+                <h1>{user.username}</h1>
                 <p className='profile-page__email'>
                     Email: <span className='profile-page__email-text'>{user.email}</span>
                 </p>

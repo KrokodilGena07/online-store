@@ -9,7 +9,6 @@ import MinusIcon from '@/assets/svg/countIcons/minusIcon.svg';
 import PlusIcon from '@/assets/svg/countIcons/plusIcon.svg';
 import {useCartStore} from '@/store/cart/useCartStore';
 import {price} from '@/utils/price';
-import {IIdInput} from '@/models/IIdInput';
 
 const Cart: FC = () => {
     const {user} = useUserStore();
@@ -24,20 +23,20 @@ const Cart: FC = () => {
         removeCartItem
     } = useCartStore();
 
-    const cartHandler = async (callback: () => Promise<void>) => {
+    const fetchCartItems = async (callback: () => Promise<void>) => {
         await callback().then(() => {
             fetchList(user?.id);
         });
     };
 
     const addItem = async (productId: string) => {
-        await cartHandler(() => incrementCountOrAdd({userId: user?.id, productId}));
+        await fetchCartItems(() => incrementCountOrAdd({userId: user?.id, productId}));
     }
     const removeItem = async (id: string) => {
-        await cartHandler(() => decrementCountOrRemove(id));
+        await fetchCartItems(() => decrementCountOrRemove(id));
     }
     const removeFromCart = async (id: string) => {
-        await cartHandler(() => removeCartItem(id));
+        await fetchCartItems(() => removeCartItem(id));
     }
 
     useEffect(() => {
@@ -58,7 +57,7 @@ const Cart: FC = () => {
 
     return (
         <div className='cart-page page'>
-            <h1 className='font'>Cart items</h1>
+            <h1 className='cart-page__title'>Cart items</h1>
             {cartProducts.map(item =>
                 <div
                     key={item.id}
@@ -75,16 +74,16 @@ const Cart: FC = () => {
                                 variant='icon'
                                 onClick={() => removeItem(item.cartId)}
                             >
-                                <MinusIcon className='cart-page__item-count-icon'/>
+                                <MinusIcon className='cart-page__item-icon'/>
                             </Button>
                         </div>
-                        <h2 className='font'>{item.count}</h2>
+                        <h2>{item.count}</h2>
                         <div>
                             <Button
                                 variant='icon'
                                 onClick={() => addItem(item.id)}
                             >
-                                <PlusIcon className='cart-page__item-count-icon'/>
+                                <PlusIcon className='cart-page__item-icon'/>
                             </Button>
                         </div>
                     </div>

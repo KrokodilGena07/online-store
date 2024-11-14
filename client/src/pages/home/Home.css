@@ -1,16 +1,18 @@
 .home-page__text {
+    font-family: Montserrat, system-ui;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-.home-page__brands-list,
-.home-page__products-list {
+.home-page__brands,
+.home-page__products {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    margin-bottom: 15px;
 }
 
-.home-page__brands-list-item {
+.home-page__brands-item {
     padding: 8px;
     border-radius: 4px;
     outline: 1px solid #DDDDDD;
@@ -19,27 +21,26 @@
     align-items: center;
 }
 
-.home-page__brands-list-item:hover {
+.home-page__brands-item:hover {
     cursor: pointer;
     outline-color: #AAAAAA;
 }
 
-.home-page__brands-list-item-image {
+.home-page__brands-image {
     max-height: 150px;
 }
 
 .home-page__products {
-    margin-top: 20px;
     padding-bottom: 10px;
 }
 
 @media screen and (max-width: 800px) {
-    .home-page__brands-list {
+    .home-page__brands {
         align-items: center;
         flex-direction: column;
     }
 
-    .home-page__brands-list-item {
+    .home-page__brands-item {
         min-width: 300px;
         justify-content: center;
     }
@@ -50,7 +51,7 @@
 }
 
 @media screen and (max-width: 700px) {
-    .home-page__products-list {
+    .home-page__products {
         justify-content: center;
     }
 

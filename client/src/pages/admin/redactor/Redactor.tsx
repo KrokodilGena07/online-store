@@ -36,6 +36,13 @@ const Redactor: FC = () => {
     const [errors, setErrors] = useState<IError[]>(null);
     const [errorMessage, setErrorMessage] = useState(null);
 
+    const [newProduct, setNewProduct] = useState<IProductInput>(null);
+    const [infos, setInfos] = useState<IInfo[]>(null);
+
+    const [brandId, setBrandId] = useState(null);
+    const [categoryId, setCategoryId] = useState(null);
+    const [image, setImage] = useState<File>(null);
+
     const inputError = useFindInputError(errors);
 
     const newProductHandler = (value: string, field: string) => {
@@ -52,6 +59,9 @@ const Redactor: FC = () => {
         isLoading: isProductMutationLoading
     } = useProductsStore();
 
+    const {data: categories, isLoading: isCategoriesLoading} = useFetchCategories();
+    const fetchCategories = useFetchCategories(state => state.fetchCategories);
+
     const setError = (err: any) => {
         const errorData = (err as AxiosError<IErrorData>).response.data;
         if (errorData.errors) {
@@ -60,40 +70,32 @@ const Redactor: FC = () => {
         setErrorMessage(errorData.message);
     }
 
-    const createProductHandler = async () => {
-        setErrors(null);
-        setErrorMessage(null);
-        await createProduct({
-            ...newProduct, brandId, categoryId, image})
-            .then(() => {
-                navBack();
-            })
-            .catch(err => setError(err));
-    };
+    const productHandler = (handler: (data: any) => Promise<void>, data: any, callback: () => void) => {
+        return async () => {
+            setErrors(null);
+            setErrorMessage(null);
+            await handler(data)
+                .then(callback)
+                .catch(err => setError(err));
+        };
+    }
 
-    const updateProductHandler = async () => {
-        setErrors(null);
-        setErrorMessage(null);
-        await updateProduct({...newProduct, brandId, categoryId, image})
-            .then(() => fetchProduct(id))
-            .catch(err => setError(err));
-    };
+    const createProductHandler = productHandler(
+        createProduct,
+        {...newProduct, brandId, categoryId, image},
+        navBack
+    );
+
+    const updateProductHandler = productHandler(
+        updateProduct,
+        {...newProduct, brandId, categoryId, image},
+        () => fetchProduct(id)
+    );
 
     const deleteProductHandler = async () => {
         deleteProduct(id);
         navigate(RouteNames.PROFILE);
     };
-
-    const {data: categories, isLoading: isCategoriesLoading} = useFetchCategories();
-    const fetchCategories = useFetchCategories(state => state.fetchCategories);
-
-    const [newProduct, setNewProduct] = useState<IProductInput>(null);
-    const [infos, setInfos] = useState<IInfo[]>(null);
-
-    const [brandId, setBrandId] = useState(null);
-    const [categoryId, setCategoryId] = useState(null);
-
-    const [image, setImage] = useState<File>(null);
 
     useEffect(() => {
         fetchProduct(id);
@@ -190,12 +192,12 @@ const Redactor: FC = () => {
             <input
                 type="file"
                 id='file'
-                className='redactor-page__none'
+                className='input__none'
                 onChange={v => setImage(v.target.files[0])}
             />
             <p className='redactor-page__label font redactor-page__product-label'>Image</p>
             <label htmlFor='file'>
-                <div className='redactor-page__file-input font'>
+                <div className='file-input redactor-page__file-input'>
                     {image?.name || 'select file'}
                 </div>
             </label>

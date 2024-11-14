@@ -11,12 +11,12 @@ interface ProductItemProps {
 
 const ProductItem: FC<ProductItemProps> = ({product}) => {
     const navigate = useNavigate();
-    const nav = (id: string) => {
+    const navigateToProductPage = (id: string) => {
         navigate(`/products/${id}`);
     };
 
     return (
-        <div className='product-item font'>
+        <div className='product-item'>
             <div>
                 <div className='product-item__image-container'>
                     <img
@@ -31,7 +31,7 @@ const ProductItem: FC<ProductItemProps> = ({product}) => {
             <div className='product-item__buttons'>
                 <Button
                     variant='primary'
-                    onClick={() => nav(product.id)}
+                    onClick={() => navigateToProductPage(product.id)}
                 >
                     Open
                 </Button>

@@ -1,8 +1,9 @@
 .product-page {
     padding-bottom: 10px;
+    font-family: Montserrat, system-ui;
 }
 
-.product-page-content {
+.product-page__body {
     box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     padding: 8px;
@@ -13,17 +14,17 @@
     justify-content: space-between;
 }
 
-.product-page-content__buttons {
+.product-page__buttons {
     margin-top: 10px;
 }
 
-.product-page-content__buttons-group {
+.product-page__buttons-container {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
 }
 
-.product-page-content__buttons-rating {
+.product-page__rating-button {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -33,12 +34,12 @@
     font-weight: 600;
 }
 
-.product-page-content__buttons-rating:hover {
+.product-page__rating-button:hover {
     cursor: pointer;
     border-color: var(--blue);
 }
 
-.product-page-content__buttons-rating-icon {
+.product-page__rating-icon {
     width: 25px;
     height: 25px;
 }
@@ -47,62 +48,62 @@
     color: var(--blue);
 }
 
-.product-page-content__image {
+.product-page__image {
     width: 32vw;
     min-width: 350px;
 }
 
-.product-page-content-data {
+.product-page__main {
     display: flex;
     gap: 20px;
 }
 
-.product-page-content-data__description {
+.product-page__description {
     font-weight: 400;
     font-size: x-large;
     margin: 10px 0;
 }
 
-.product-page-content-data__infos {
+.product-page__infos {
     margin-top: 10px;
 }
 
-.product-page-content-data__infos-item {
+.product-page__infos-item {
     padding: 4px;
 }
 
-.product-page-content-data__infos-item:nth-child(odd) {
+.product-page__infos-item:nth-child(odd) {
     background-color: #DDDDDD;
     border-radius: 4px;
 }
 
-.product-page-content-data__infos-item-title {
+.product-page__infos-item-title {
     font-weight: 500;
 }
 
 @media screen and (width < 1000px) {
-    .product-page-content {
+    .product-page__body {
         min-height: calc(100vh - (var(--mobile-header-height) + var(--header-margin) + 10px));
     }
 }
 
 @media screen and (max-width: 400px) {
-    .product-page-content__buttons-group {
+    .product-page__buttons-container {
         justify-content: center;
     }
 }
 
 @media screen and (max-width: 800px) {
-    .product-page-content-data {
+    .product-page__main {
         flex-direction: column;
     }
 
-    .product-page-content__image-container {
+    .product-page__image-container {
         display: flex;
         justify-content: center;
     }
 
-    .product-page-content {
+    .product-page__body {
         padding: 0;
         box-shadow: none;
     }

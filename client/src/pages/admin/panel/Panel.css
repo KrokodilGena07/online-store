@@ -1,3 +1,7 @@
+.admin-page {
+    font-family: Montserrat, system-ui;
+}
+
 .admin-page__text {
     margin: 10px 0;
 }
@@ -47,20 +51,6 @@
 .admin-page__modal-section {
     height: 100%;
     flex-direction: column;
-}
-
-.admin-page__none {
-    display: none;
-}
-
-.admin-page__file-input {
-    border: 2px solid #AAAAAA;
-    border-radius: 4px;
-    padding: 6px;
-    color: var(--blue);
-    cursor: pointer;
-    text-align: center;
-    margin-top: 10px;
 }
 
 .admin-page__modal-error {

@@ -14,17 +14,17 @@
     min-width: 300px;
 }
 
-.auth-page__form-label {
+.auth-page__label {
     font-family: Montserrat, system-ui;
     font-weight: 500;
     margin-top: 10px;
 }
 
-.auth-page__form-button {
+.auth-page__button {
     margin-top: 20px;
 }
 
-.auth-page__form-link {
+.auth-page__link {
     font-family: Montserrat, system-ui;
     font-weight: 400;
     margin-top: 10px;
@@ -32,12 +32,12 @@
     color: #6c6c6c;
 }
 
-.auth-page__form-link-text {
+.auth-page__link-text {
     text-decoration: none;
     color: var(--blue);
 }
 
-.auth-page__form-error {
+.auth-page__error {
     font-family: Montserrat, system-ui;
     font-weight: 400;
 
@@ -47,6 +47,6 @@
     text-align: center;
 }
 
-.auth-page__form-password-input {
+.auth-page__password-input {
     width: 100%;
 }

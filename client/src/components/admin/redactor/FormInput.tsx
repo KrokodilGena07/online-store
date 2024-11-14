@@ -17,7 +17,7 @@ const FormInput: FC<FormInputProps> = (props) => {
         <>
             <label
                 htmlFor={props.id}
-                className={`font redactor-page__label ${props.className}`}
+                className={`redactor-page__label ${props.className}`}
             >
                 {props.label}
             </label>

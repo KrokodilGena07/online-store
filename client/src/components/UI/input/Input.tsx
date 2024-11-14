@@ -36,7 +36,7 @@ const Input: FC<InputProps> = props => {
     />;
 
     const error = props.error &&
-        <div className='input-error-text font'>
+        <div className='input-error-text'>
             {props.error.msg}
         </div>;
 

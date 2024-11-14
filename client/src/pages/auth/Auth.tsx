@@ -66,7 +66,7 @@ const Auth: FC = () => {
 
     const link = <Link
         to={isLogin ? RouteNames.AUTH_REGISTRATION : RouteNames.AUTH_LOGIN}
-        className='auth-page__form-link-text'
+        className='auth-page__link-text'
     >
         here
     </Link>;
@@ -81,7 +81,7 @@ const Auth: FC = () => {
                     <>
                         <label
                             htmlFor="username"
-                            className='auth-page__form-label'
+                            className='auth-page__label'
                         >
                             Username
                         </label>
@@ -97,7 +97,7 @@ const Auth: FC = () => {
                 }
                 <label
                     htmlFor="email"
-                    className='auth-page__form-label'
+                    className='auth-page__label'
                 >
                     Email
                 </label>
@@ -112,7 +112,7 @@ const Auth: FC = () => {
                 />
                 <label
                     htmlFor="password"
-                    className='auth-page__form-label'
+                    className='auth-page__label'
                 >
                     Password
                 </label>
@@ -124,19 +124,19 @@ const Auth: FC = () => {
                     size='lg'
                     isInvalid={!!inputError('password')}
                     error={inputError('password')}
-                    className='auth-page__form-password-input'
+                    className='auth-page__password-input'
                 />
                 {!errors &&
-                    <span className='auth-page__form-error'>{errorMessage}</span>
+                    <span className='auth-page__error'>{errorMessage}</span>
                 }
-                <div className='auth-page__form-button'>
+                <div className='auth-page__button'>
                     <Button
                         variant='primary'
                     >
                         {isLoading ? 'Loading...' : 'Send'}
                     </Button>
                 </div>
-                <span className='auth-page__form-link'>
+                <span className='auth-page__link'>
                     Click {link} to {isLogin ? 'sign up' : 'sign in'}
                 </span>
             </form>

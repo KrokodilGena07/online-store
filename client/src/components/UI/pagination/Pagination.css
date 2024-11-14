@@ -1,0 +1,31 @@
+.pagination {
+    display: flex;
+    gap: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+
+.pagination__item {
+    border: 2px solid #AAAAAA;
+    border-radius: 4px;
+    color: var(--blue);
+
+    font-family: Montserrat, system-ui;
+    font-size: x-large;
+    font-weight: 500;
+
+    min-width: 40px;
+    padding: 4px;
+    text-align: center;
+}
+
+.pagination__item:hover {
+    cursor: pointer;
+    border-color: var(--blue);
+}
+
+.pagination__item_selected {
+    background-color: var(--blue);
+    color: #FFFFFF;
+    border-color: var(--blue);
+}

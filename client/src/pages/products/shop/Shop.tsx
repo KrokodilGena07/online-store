@@ -1,13 +1,15 @@
 import React, {FC, useEffect, useState} from 'react';
 import './Shop.css';
 import Dropdown from '@/components/UI/dropdown/Dropdown';
-import {IDropdownItem} from '@/models/UI/IDropdownItem';
 import {useFetchBrands} from '@/store/brands/useFetchBrands';
 import Loader from '@/components/UI/loader/Loader';
 import {useFetchCategories} from '@/store/categories/useFetchCategories';
 import {useFetchProducts} from '@/store/products/useFetchProducts';
 import {useLocation} from 'react-router-dom';
 import ProductItem from '@/components/productItem/ProductItem';
+import Pagination from '@/components/UI/pagination/Pagination';
+import {sorts} from '@/utils/sorts';
+import {limits} from '@/utils/limits';
 
 const Shop: FC = () => {
     const location = useLocation();
@@ -32,29 +34,14 @@ const Shop: FC = () => {
     }, [location.search]);
 
     const [page, setPage] = useState(1);
-
     const [sort, setSort] = useState('default');
-    const sorts: IDropdownItem[] = [
-        {value: 'default', title: 'no sort'},
-        {value: 'rate_up', title: 'rating ascending'},
-        {value: 'rate_down', title: 'rating descending'},
-        {value: 'price_up', title: 'price ascending'},
-        {value: 'price_down', title: 'price descending'}
-    ];
-
     const [limit, setLimit] = useState(null);
-    const limits: IDropdownItem[] = [
-        {value: 5, title: '5 products'},
-        {value: 10, title: '10 products'},
-        {value: 20, title: '20 products'},
-        {value: 50, title: '50 products'}
-    ];
+    const [brand, setBrand] = useState(null);
+    const [category, setCategory] = useState(null);
 
-    const [brand, setBrand] = useState<string>(null);
     const {isLoading: isBrandLoading, data: brands} = useFetchBrands();
     const fetchBrands = useFetchBrands(state => state.fetchBrands);
 
-    const [category, setCategory] = useState(null);
     const {isLoading: isCategoryLoading, data: categories} = useFetchCategories();
     const fetchCategories = useFetchCategories(state => state.fetchCategories);
 
@@ -69,6 +56,7 @@ const Shop: FC = () => {
         fetchBrands();
         fetchCategories();
     }, []);
+
     useEffect(() => {
         fetchProducts({
             brandId: brand || brandId,
@@ -114,30 +102,24 @@ const Shop: FC = () => {
                     defaultValue='set limit'
                 />
             </div>
-            <div className='shop-page__products'>
-                {products?.data.map(product =>
-                    <ProductItem
-                        product={product}
-                        key={product.id}
-                    />
-                )}
-            </div>
-            {pagesArray.length > 1 &&
-                <div className='shop-page__pagination'>
-                    {pagesArray.map(p =>
-                        <p
-                            key={p}
-                            className={`shop-page__pagination-item font ${page === p + 1 && 'shop-page__pagination-item_selected'}`}
-                            onClick={() => setPage(p + 1)}
-                        >
-                            {p + 1}
-                        </p>
+            {!!products?.count &&
+                <div className='shop-page__products'>
+                    {products?.data.map(product =>
+                        <ProductItem
+                            product={product}
+                            key={product.id}
+                        />
                     )}
                 </div>
             }
+            <Pagination
+                page={page}
+                setPage={setPage}
+                pages={pagesArray}
+            />
             {!products?.count &&
-                <div className='shop-page__not-found-text center-container'>
-                    <p className='font'>Products not found</p>
+                <div className='shop-page__error-text center-container'>
+                    <p>Products not found</p>
                 </div>
             }
         </div>

@@ -1,5 +1,6 @@
 .bad-request-error {
     flex-direction: column;
+    font-family: Montserrat, system-ui;
 }
 
 .bad-request-error__text {
